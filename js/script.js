@@ -16,9 +16,12 @@ function validateName() {
     var nameInput = document.getElementById('aipName');
     var name = nameInput.value.trim();
     var submitBtn = document.querySelector('.submit');
+    var vm=document.getElementById("nameValidationMessage");
 
     if (name.length > 100) {
-        
+        vm.innerText="Invalid Length";
+    }else{
+        vm.innerText="";
     }
 
     if (name.length === 0 || name.length > 100) {
