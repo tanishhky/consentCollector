@@ -54,8 +54,9 @@
                         <span class="asterisk">&nbsp*</span>
                     </span>
                     <input
-                        type="text"
+                        type="email"
                         class="form-control"
+                        id="aipEmail"
                     >
                 </div>
             </div>
@@ -110,7 +111,10 @@
                         type="date"
                         class="form-control"
                         onkeydown="return false"
+                        id="dateInput"
+                        min="<?php echo date('Y-m-d'); ?>"
                     >
+
                 </div>
             </div>
             <div class="col-lg-6 col-12">
