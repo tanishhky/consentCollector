@@ -19,13 +19,19 @@ function validateUUID() {
 function validateEmail() {
     var emailInput = document.getElementById("aipEmail");
     var validationMessage = document.getElementById("emailValidationMessage");
+    var submitButton = document.getElementById("submitButton");
 
     if (emailInput.validity.valid) {
         validationMessage.innerText = "";
+        emailInput.classList.remove("is-invalid");
+        submitButton.disabled = false;
     } else {
         validationMessage.innerText = "Invalid email address";
+        emailInput.classList.add("is-invalid");
+        submitButton.disabled = true;
     }
 }
+
 
 
 function validateName() {

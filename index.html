@@ -57,7 +57,11 @@
                         type="email"
                         class="form-control"
                         id="aipEmail"
+                        pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                        onchange="validateEmail()"
                     >
+                    <span id="emailValidationMessage" class="validation-message"></span>
+
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -216,9 +220,9 @@
         </div>
         <script src="js/virtual-select.min.js"></script>
         <script>
-        VirtualSelect.init({
-  ele: 'select'
-});
+            VirtualSelect.init({
+                ele: 'select'
+            });
         </script>
         <script src="js/script.js"></script>
     </body>
