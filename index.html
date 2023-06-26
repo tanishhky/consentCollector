@@ -42,7 +42,9 @@
                         type="text"
                         class="form-control"
                         id="aipId"
+                        oninput="validateUUID()"
                     >
+                    <span id="uuidValidationMessage"></span>
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -66,6 +68,8 @@
                     <input
                         type="text"
                         class="form-control"
+                        id="aipName"
+                        onchange="validateName()"
                     >
                 </div>
             </div>

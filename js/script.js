@@ -3,9 +3,28 @@ function validateUUID(){
 
     var reg=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-    if(reg.test(aipId)){
-        alert("Valid UUID version");
+    var validationMessage=document.getElementById("uuidValidationMessage");
+
+    if(reg.test(aid)){
+        validationMessage.innerText="";
     }else{
-        alert("Invalid UUID version");
+        validationMessage.innerText="Invalid UUID";
+    }
+}
+
+function validateName() {
+    var nameInput = document.getElementById('aipName');
+    var name = nameInput.value.trim();
+    var submitBtn = document.querySelector('.submit');
+
+    if (name.length > 100) {
+        
+    }
+
+    if (name.length === 0 || name.length > 100) {
+      submitBtn.disabled = true;
+    } 
+    else {
+      submitBtn.disabled = false;
     }
 }
