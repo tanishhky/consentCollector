@@ -151,11 +151,8 @@ label{
   text-align: right;
 }
 
-#uuidValidationMessage{
-  color:red;
-  font-size:12px;
-}
-#nameValidationMessage{
+
+#AIUIDValidationMessage,#AIUNameValidationMessage,#AIUemailValidationMessage,#uuidValidationMessage,#nameValidationMessage,#emailValidationMessage{
   color:red;
   font-size:12px;
 }

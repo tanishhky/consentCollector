@@ -55,7 +55,7 @@
                     </span>
                     <input
                         type="email"
-                        class="form-control"
+                        class="form-control emails"
                         id="aipEmail"
                         pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
                         onchange="validateEmail()"
@@ -88,7 +88,10 @@
                     <input
                         type="text"
                         class="form-control"
+                        id="dpID"
+                        onchange="DPIDValidation()"
                     >
+                    <span id="dpIDValidationMessage"></span>
                 </div>
             </div>
 
@@ -101,7 +104,9 @@
                     <input
                         type="text"
                         class="form-control"
+                        id="dpName"
                     >
+                    <span id="dpNameValidationMessage"></span>
                 </div>
             </div>
 
@@ -116,9 +121,7 @@
                         class="form-control"
                         onkeydown="return false"
                         id="dateInput"
-                        min="<?php echo date('Y-m-d'); ?>"
                     >
-
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -130,17 +133,18 @@
                     <input
                         type="text"
                         class="form-control"
+                        id="itemInp"
                     >
                 </div>
             </div>
             <div class="col-lg-6 col-12">
                 <div class="input-group mb-3">
                     <label class="input-group-text">Item Type</label>
-                    <select class="form-select p-0">
-                      <option value="1">Resource1</option>
-                      <option value="2">Resource Group</option>
+                    <select class="form-select p-0" id="itemtype" readonly>
+                        <option value="1">Resource1</option>
+                        <option value="2">Resource Group</option>
                     </select>
-                  </div>
+                </div>                
             </div>
 
             <div class="col-lg-6 col-12">
@@ -151,6 +155,7 @@
                     </label>
                     <select
                         multiple
+                        id="purpose"
                         data-search="false"
                         data-silent-initial-value-set="true"
                     >
@@ -188,7 +193,10 @@
                     <input
                         type="text"
                         class="form-control"
+                        id="aiuId"
+                        onchange="validateAIUID()"
                     >
+                    <span id="AIUIDValidationMessage"></span>
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -199,7 +207,10 @@
                     <input
                         type="text"
                         class="form-control"
+                        id="aiuName"
+                        onchange="validateAIUName()"
                     >
+                    <span id="AIUNameValidationMessage" class="validation-message"></span>
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -208,13 +219,17 @@
                         AIU Email
                     </span>
                     <input
-                        type="text"
-                        class="form-control"
+                        type="email"
+                        class="form-control emails"
+                        id="aiuEmail"
+                        pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                        onchange="validateAIUEmail()"
                     >
+                    <span id="AIUemailValidationMessage" class="validation-message"></span>
                 </div>
             </div>
             <div class="col-12 text-center">
-                <a class="btn btn-primary w-25 mb-4 submit" type="button" href="Summary.html">Submit</a>
+                <a class="btn btn-primary w-25 mb-4 submit" type="button" href="Summary.html" disabled>Submit</a>
             </div>
             <div class="row"></div>
         </div>
