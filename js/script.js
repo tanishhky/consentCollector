@@ -35,11 +35,11 @@ function validateEmail() {
     if (emailInput.validity.valid) {
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
-        submitButton.disabled = false;
+        // submitButton.disabled = false;
     } else {
         validationMessage.innerText = "Invalid email address";
         emailInput.classList.add("is-invalid");
-        submitButton.disabled = true;
+        // submitButton.disabled = true;
     }
 }
 
@@ -51,11 +51,11 @@ function validateAIUEmail() {
     if (emailInput.validity.valid) {
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
-        submitButton.disabled = false;
+        // submitButton.disabled = false;
     } else {
         validationMessage.innerText = "Invalid email address";
         emailInput.classList.add("is-invalid");
-        submitButton.disabled = true;
+        // submitButton.disabled = true;
     }
 }
 
@@ -70,12 +70,12 @@ function validateName() {
         vm.innerText = "Invalid Length";
     }
 
-    if (name.length === 0 || name.length > 100) {
-        submitBtn.disabled = true;
-    }
-    else {
-        submitBtn.disabled = false;
-    }
+    // if (name.length === 0 || name.length > 100) {
+    //     submitBtn.disabled = true;
+    // }
+    // else {
+    //     submitBtn.disabled = false;
+    // }
 }
 function validateAIUName() {
     var nameInput = document.getElementById('aiuName');
@@ -87,12 +87,12 @@ function validateAIUName() {
         vm.innerText = "Invalid Length";
     }
 
-    if (name.length === 0 || name.length > 100) {
-        submitBtn.disabled = true;
-    }
-    else {
-        submitBtn.disabled = false;
-    }
+    // if (name.length === 0 || name.length > 100) {
+    //     submitBtn.disabled = true;
+    // }
+    // else {
+    //     submitBtn.disabled = false;
+    // }
 }
 
 function DPIDValidation(){
