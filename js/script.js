@@ -112,8 +112,8 @@ function DPIDValidation(){
     }
 }
 
-var consent = document.getElementById("mt-3");
-if (consent) {
+function conJSON(){
+    console.log("a");
     consent.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -173,6 +173,6 @@ if (consent) {
         // Additional code to save or process the JSON data as needed
 
         // Reset the form
-        studentForm.reset();
+        // studentForm.reset();
     });
 }
