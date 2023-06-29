@@ -152,7 +152,7 @@ label{
 }
 
 
-#AIUIDValidationMessage,#AIUNameValidationMessage,#AIUemailValidationMessage,#uuidValidationMessage,#nameValidationMessage,#emailValidationMessage{
+#AIUIDValidationMessage,#AIUNameValidationMessage,#AIUemailValidationMessage,#uuidValidationMessage,#nameValidationMessage,#emailValidationMessage,#dpIDValidationMessage{
   color:red;
   font-size:12px;
 }
