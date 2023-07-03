@@ -4,8 +4,6 @@ document.getElementById("dateInput").min = today;
 var link = document.getElementById("lynk");
 link.removeAttribute("href");
 
-var consent=document.getElementById("consent");
-
 function validateUUID() {
     var aid = document.getElementById("aipId").value;
     var reg =
@@ -14,10 +12,11 @@ function validateUUID() {
 
     if (reg.test(aid)) {
         validationMessage.innerText = "";
+        return true;
     } else {
         validationMessage.innerText = "Invalid UUID";
+        return false;
     }
-    validateForm();
 }
 function validateAIUID() {
     var aid = document.getElementById("aiuId").value;
@@ -27,10 +26,11 @@ function validateAIUID() {
 
     if (reg.test(aid)) {
         validationMessage.innerText = "";
+        return true;
     } else {
         validationMessage.innerText = "Invalid UUID";
+        return false;
     }
-    validateForm();
 }
 
 function validateEmail() {
@@ -41,13 +41,12 @@ function validateEmail() {
     if (emailInput.validity.valid) {
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
-        // submitButton.disabled = false;
+        return true;
     } else {
         validationMessage.innerText = "Invalid email address";
         emailInput.classList.add("is-invalid");
-        // submitButton.disabled = true;
+        return false;
     }
-    validateForm();
 }
 
 function validateAIUEmail() {
@@ -55,16 +54,15 @@ function validateAIUEmail() {
     var validationMessage = document.getElementById(
         "AIUemailValidationMessage"
     );
-    var submitButton = document.getElementById("submitButton");
 
     if (emailInput.validity.valid) {
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
-        // submitButton.disabled = false;
+        return true;
     } else {
         validationMessage.innerText = "Invalid email address";
         emailInput.classList.add("is-invalid");
-        // submitButton.disabled = true;
+        return false;
     }
     validateForm();
 }
@@ -77,17 +75,12 @@ function validateName() {
 
     if (name.length > 100) {
         vm.innerText = "Invalid Length";
+        return false;
     } else {
         vm.innerText = "";
+        return true;
     }
     validateForm();
-
-    // if (name.length === 0 || name.length > 100) {
-    //     submitBtn.disabled = true;
-    // }
-    // else {
-    //     submitBtn.disabled = false;
-    // }
 }
 function validateAIUName() {
     var nameInput = document.getElementById("aiuName");
@@ -97,16 +90,12 @@ function validateAIUName() {
 
     if (name.length > 100) {
         vm.innerText = "Invalid Length";
+        return false;
     } else {
         vm.innerText = "";
+        return true;
     }
     validateForm();
-    // if (name.length === 0 || name.length > 100) {
-    //     submitBtn.disabled = true;
-    // }
-    // else {
-    //     submitBtn.disabled = false;
-    // }
 }
 
 function DPIDValidation() {
@@ -115,11 +104,15 @@ function DPIDValidation() {
 
     if (dpidInput.length !== 11 && dpidInput.length !== 12) {
         vm.innerText = "Invalid ID";
-    } else {
+        return false;
+    }
+    else {
         if (dpidInput[0] == "T" || dpidInput[0] == "R") {
             vm.innerText = "";
+            return true;
         } else {
             vm.innerText = "Invalid ID";
+            return false;
         }
     }
     validateForm();
@@ -127,100 +120,86 @@ function DPIDValidation() {
 
 // added by sanjana--this fn
 function validateForm() {
-    var formInputs = document.querySelectorAll("input");
-    var submitButton = document.getElementById("lynk");
-    var isValid = true;
+    // var formInputs = document.querySelectorAll("input");
+    // var isValid = true;
 
-    formInputs.forEach(function (input) {
-        if (!input.validity.valid) {
-            isValid = false;
-            return;
-        }
-    });
+    // formInputs.forEach(function (input) {
+    //     if (!input.validity.valid) {
+    //         isValid = false;
+    //         return;
+    //     }
+    // });
 
-    //   submitButton.disabled = !isValid;
-    if (isValid) {
-        link.setAttribute("href","Summary.html");
+    // if (isValid) {
+    //     link.setAttribute("href", "Summary.html");
+    // }
+    if (validateAIUEmail() && validateAIUID() && validateAIUName() && validateEmail() && validateName() && validateUUID() && DPIDValidation()) {
+        conJSON();
+        link.setAttribute("href", "Summary.html");
     }
 }
 
 function conJSON() {
-    console.log("a");
-    consent.addEventListener("click", function (e) {
-        e.preventDefault();
+    validateForm();
+    var aipID = document.getElementById("aipId").value;
+    var aipEmail = document.getElementById("aipEmail").value;
+    var aipName = document.getElementById("aipName").value;
+    var aiuID = document.getElementById("aiuId").value;
+    var aiuEmail = document.getElementById("aiuEmail").value;
+    var aiuName = document.getElementById("aiuName").value;
+    var dpID = document.getElementById("dpID").value;
+    var dpName = document.getElementById("dpName").value;
+    var itemtype = document.getElementById("itemtype").value;
+    var expiryDate=document.getElementById("dateInput").value;
+    var submissionTime=new Date().toISOString();
 
-        var aipID = document
-            .getElementById("aipId")
-            .querySelector("input").value;
-        var aipEmail = document
-            .getElementById("aipEmail")
-            .querySelector("input").value;
-        var aipName = document
-            .getElementById("aipName")
-            .querySelector("input").value;
-        var aiuID = document
-            .getElementById("aiuId")
-            .querySelector("input").value;
-        var aiuEmail = document
-            .getElementById("aiuEmail")
-            .querySelector("input").value;
-        var aiuName = document
-            .getElementById("aiuName")
-            .querySelector("input").value;
-        var dpID = document.getElementById("dpID").querySelector("input").value;
-        var dpName = document
-            .getElementById("dpName")
-            .querySelector("input").value;
-        var itemType = document.getElementById("itemType").value;
+    // console.log(selectedOptions);
 
-        var purpose = Array.from(
-            document.getElementById("purpose").selectedOptions
-        ).map(function (option) {
-            return {
-                code: option.value,
-                name: option.textContent,
-            };
-        });
-
-        var year = document.getElementById("year").value;
-
-        var stuData = {
+    var userData = {
+        id: aipID,
+        aip: {
             id: aipID,
-            aip: {
-                id: aipID,
-                email: aipEmail,
-                name: aipName,
-            },
-            aiu: {
-                id: aiuID,
-                email: aiuEmail,
-                name: aiuName,
-            },
-            dataPrincipal: {
-                id: dpID,
-                idType: itemType,
-                name: dpName,
-            },
-            purposes: purpose,
-            // "purposes": [
-            //     {
-            //         "code": "G4",
-            //         "name": "Innovation"
-            //     }
-            // ],
-            itemId: "datakaveri.org/a3dca9dfbe40f76b863da69d0d7d6f7c984e93bf/rs.iudx.io/ResGrp",
-            itemType: "resource_group",
-            expiry: "2024-05-31T13:05:36.471620Z",
-            createdAt: "2023-06-20T12:59:32.471620Z",
-        };
+            email: aipEmail,
+            name: aipName,
+        },
+        aiu: {
+            id: aiuID,
+            email: aiuEmail,
+            name: aiuName,
+        },
+        dataPrincipal: {
+            id: dpID,
+            // idType: itemType,
+            name: dpName,
+        },
+        //purposes: purpose,
+        itemId: "datakaveri.org/a3dca9dfbe40f76b863da69d0d7d6f7c984e93bf/rs.iudx.io/ResGrp",
+        itemType: itemtype,
+        expiry: expiryDate,
+        createdAt: submissionTime,
+    };
+    var jsonData = JSON.stringify(userData);
+    console.log(userData);
 
-        // Convert stuData to JSON
-        var jsonData = JSON.stringify(stuData);
-        console.log(jsonData);
+    // Create a Blob with the JSON data
+    var blob = new Blob([jsonData], { type: "application/json" });
 
-        // Additional code to save or process the JSON data as needed
+    // Create a download link
+    var downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = "data.json";
 
-        // Reset the form
-        // studentForm.reset();
-    });
+    // Append the download link to the document body
+    document.body.appendChild(downloadLink);
+
+    // Trigger the download
+    downloadLink.click();
+
+    // Clean up the download link
+    document.body.removeChild(downloadLink);
+
+    // Reset the form
+    // studentForm.reset();
+    // studentForm.reset();
 }
+
