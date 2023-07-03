@@ -142,7 +142,9 @@ h1{
 
 .form-select{
   background-image: none;
+  /* width: 100%; */
 }
+
 
 label{
   font-weight: 700;
@@ -153,4 +155,8 @@ label{
 #AIUIDValidationMessage,#AIUNameValidationMessage,#AIUemailValidationMessage,#uuidValidationMessage,#nameValidationMessage,#emailValidationMessage,#dpIDValidationMessage{
   color:red;
   font-size:12px;
+  margin-top:0.25rem;
+  margin-bottom: 0;
+  width:100%;
 }
+
