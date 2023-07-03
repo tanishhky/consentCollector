@@ -18,25 +18,48 @@ function validateUUID() {
         return false;
     }
 }
-function validateAIUID() {
-    var aid = document.getElementById("aiuId").value;
-    var reg =
-        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    var validationMessage = document.getElementById("AIUIDValidationMessage");
+function DPnameValidation(){
+    var nameInput = document.getElementById("dpName");
+    var name = nameInput.value.trim();
+    var submitBtn = document.querySelector(".submit");
+    var vm = document.getElementById("nameValidationMessage");
 
-    if (reg.test(aid)) {
-        validationMessage.innerText = "";
+    if (name.length > 100) {
+        vm.innerText = "Invalid Length";
+        return false;
+    } else {
+        vm.innerText = "";
+        return true;
+    }
+}
+function validateAIUID() {
+    var uid = document.getElementById("aiuId").value;
+    var reg2 =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    var validationMessage2 = document.getElementById("AIUIDValidationMessage");
+
+    if (reg2.test(uid)) {
+        validationMessage2.innerText = "";
         return true;
     } else {
-        validationMessage.innerText = "Invalid UUID";
+        validationMessage2.innerText = "Invalid UUID";
         return false;
     }
 }
-
+function validateAIU(){
+    if(validateAIUID && validateAIUName && validateAIUEmail){
+        return 2;
+    }
+    else if(!validateAIUID && !validateAIUName && !validateAIUEmail){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
 function validateEmail() {
     var emailInput = document.getElementById("aipEmail");
     var validationMessage = document.getElementById("emailValidationMessage");
-    var submitButton = document.getElementById("submitButton");
 
     if (emailInput.validity.valid) {
         validationMessage.innerText = "";
@@ -64,7 +87,6 @@ function validateAIUEmail() {
         emailInput.classList.add("is-invalid");
         return false;
     }
-    validateForm();
 }
 
 function validateName() {
@@ -80,7 +102,6 @@ function validateName() {
         vm.innerText = "";
         return true;
     }
-    validateForm();
 }
 function validateAIUName() {
     var nameInput = document.getElementById("aiuName");
@@ -95,7 +116,6 @@ function validateAIUName() {
         vm.innerText = "";
         return true;
     }
-    validateForm();
 }
 
 function DPIDValidation() {
@@ -115,32 +135,23 @@ function DPIDValidation() {
             return false;
         }
     }
-    validateForm();
 }
 
 // added by sanjana--this fn
 function validateForm() {
-    // var formInputs = document.querySelectorAll("input");
-    // var isValid = true;
-
-    // formInputs.forEach(function (input) {
-    //     if (!input.validity.valid) {
-    //         isValid = false;
-    //         return;
-    //     }
-    // });
-
-    // if (isValid) {
-    //     link.setAttribute("href", "Summary.html");
-    // }
-    if (validateAIUEmail() && validateAIUID() && validateAIUName() && validateEmail() && validateName() && validateUUID() && DPIDValidation()) {
-        conJSON();
+   
+    if (validateEmail() && validateName() && validateUUID() && DPIDValidation()&&DPnameValidation()) {
+        console.log(validateName);
+        console.log(validateEmail);
+        console.log(validateUUID);
+        console.log(DPIDValidation);
+        console.log(DPnameValidation);
+        document.getElementById("lynk").innerHTML = "SUBMIT";
         link.setAttribute("href", "Summary.html");
     }
 }
 
 function conJSON() {
-    validateForm();
     var aipID = document.getElementById("aipId").value;
     var aipEmail = document.getElementById("aipEmail").value;
     var aipName = document.getElementById("aipName").value;
@@ -153,7 +164,19 @@ function conJSON() {
     var expiryDate=document.getElementById("dateInput").value;
     var submissionTime=new Date().toISOString();
 
-    // console.log(selectedOptions);
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     document.getElementById("sumAIPid").textContent=aipID;
+    //     document.getElementById("sumAIPmail").textContent=aipEmail;
+    //     document.getElementById("sumAIPname").textContent=aipName;
+    //     document.getElementById("sumDPid").textContent=dpID;
+    //     document.getElementById("sumDPname").textContent=dpName;
+    // });
+    // document.getElementById("").textContent=;
+    // document.getElementById("").textContent=;
+    // document.getElementById("").textContent=;
+    // document.getElementById("").textContent=;
+    // document.getElementById("").textContent=;
+    // document.getElementById("").textContent=;
 
     var userData = {
         id: aipID,
@@ -187,7 +210,8 @@ function conJSON() {
     // Create a download link
     var downloadLink = document.createElement("a");
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = "data.json";
+    // var filename=aipName+".json";
+    downloadLink.download = aipName+".json";
 
     // Append the download link to the document body
     document.body.appendChild(downloadLink);
@@ -199,7 +223,7 @@ function conJSON() {
     document.body.removeChild(downloadLink);
 
     // Reset the form
-    // studentForm.reset();
+    //studentForm.reset();
     // studentForm.reset();
 }
 
