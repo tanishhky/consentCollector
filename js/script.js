@@ -4,6 +4,8 @@ document.getElementById("dateInput").min = today;
 var link = document.getElementById("lynk");
 link.removeAttribute("href");
 
+var consent=document.getElementById("consent");
+
 function validateUUID() {
     var aid = document.getElementById("aipId").value;
     var reg =
@@ -144,7 +146,7 @@ function validateForm() {
 
 function conJSON() {
     console.log("a");
-    consent.addEventListener("submit", function (e) {
+    consent.addEventListener("click", function (e) {
         e.preventDefault();
 
         var aipID = document
