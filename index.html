@@ -30,15 +30,15 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-lg-6 col-12 text-center">
+                <div class="col-lg-6 col-12">
                     <div class="input-group mb-4">
-                        </span>
                         <span class="input-group-text hover-text m-0">
                             AIP Id
                             <span class="asterisk">&nbsp*</span>
                         </span>
                         <input type="text" class="form-control" id="aipId" oninput="validateUUID()">
                         <span id="uuidValidationMessage"></span>
+                        
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -47,9 +47,8 @@
                             AIP Email
                             <span class="asterisk">&nbsp*</span>
                         </span>
-                        <input type="email" class="form-control emails" id="aipEmail" pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
-                            onchange="validateEmail()">
-                        <span id="emailValidationMessage" class="validation-message"></span>
+                        <input type="email" class="form-control emails" id="aipEmail" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" onchange="validateEmail()">
+                        <span id="emailValidationMessage"></span>
 
                     </div>
                 </div>
@@ -106,7 +105,7 @@
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-3">
                         <label class="input-group-text">Item Type</label>
-                        <select class="form-select p-0" id="itemtype" readonly>
+                        <select class="form-select p-0" id="itemtype">
                             <option value="1">Resource1</option>
                             <option value="2">Resource Group</option>
                         </select>
@@ -119,7 +118,7 @@
                             Purposes
                             <span class="asterisk">&nbsp*</span>
                         </label>
-                        <select multiple id="purpose" data-search="false" data-silent-initial-value-set="true">
+                        <select multiple id="purpose" class="pp" data-search="false" data-silent-initial-value-set="true">
                             <option value="B1">Agricultural credit (code B1)</option>
                             <option value="B2">Insurance (code B2)</option>
                             <option value="B3">Logistics(code B3)</option>
@@ -175,7 +174,7 @@
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <a class="btn btn-primary w-25 mb-4 submit" id="lynk" type="button" href="Summary.html" disabled onclick="conJSON()">Submit</a>
+                    <a class="btn btn-primary w-25 mb-4 submit" id="lynk" type="button" onclick="conJSON()">Submit</a>
                 </div>
                 <div class="row"></div>
 
