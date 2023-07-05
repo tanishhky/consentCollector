@@ -1,23 +1,21 @@
-document.addEventListener("DOMContentLoaded", function() {
-  var AIU = localStorage.getItem("AIU");
-  console.log(AIU)
-  if (AIU != 2) {
-    console.log("removing");
+document.addEventListener("DOMContentLoaded", function () {
+    var AIU = localStorage.getItem("AIU");
     console.log(AIU);
-    document.getElementById("aiusec").style.display = "none";
-    console.log("removed");
-  }
+    if (AIU != 2) {
+        console.log("removing");
+        console.log(AIU);
+        document.getElementById("aiusec").style.display = "none";
+        console.log("removed");
+    }
 });
 
-
-  
 // Hide the AIU section if AIU is not 2
 // function checking(){
 // if (AIU != 2) {
 //   document.getElementById("aiusec").style.display = "none";
 // }
 // }
-var editCall=0;
+var editCall = 0;
 var aipId = localStorage.getItem("sumID");
 var aipEmail = localStorage.getItem("sumEmail");
 var aipName = localStorage.getItem("sumAIPname");
@@ -55,18 +53,20 @@ document.getElementById("sumAIUname").textContent = aiuName;
 document.getElementById("sumAIUmail").textContent = aiuEmail;
 
 if (userConsent) {
-    var blob = new Blob([JSON.stringify(userConsent)], { type: "application/json" });
+    var blob = new Blob([JSON.stringify(userConsent)], {
+        type: "application/json",
+    });
     var downloadLink = document.createElement("a");
     downloadLink.href = URL.createObjectURL(blob);
     downloadLink.download = aipName + ".json";
-    document.getElementById("downloadJSON").addEventListener('click',()=>{
-      downloadLink.click();
-    })
+    document.getElementById("downloadJSON").addEventListener("click", () => {
+        downloadLink.click();
+    });
 }
 
 function retainDetails() {
-    editCall=1;
-    localStorage.setItem("editCall",editCall);
+    editCall = 1;
+    localStorage.setItem("editCall", editCall);
     document.getElementById("aipId").value = aipId;
     document.getElementById("aipName").value = aipName;
     document.getElementById("aipEmail").value = aipEmail;
