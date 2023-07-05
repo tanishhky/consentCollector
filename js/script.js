@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
 
 document.addEventListener("DOMContentLoaded", function () {
     var editCall = localStorage.getItem("editCall");
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-var userConsent;
+var userConsent; 
 var AIU;
 var checkAIUID, checkAIUEmail, checkAIUName;
 
@@ -46,7 +46,7 @@ function validateEmail() {
     var emailInput = document.getElementById("aipEmail");
     var validationMessage = document.getElementById("emailValidationMessage");
 
-    if (isValidEmail(emailInput.value)) {
+    if (isValidEmail(emailInput.value)) { 
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
         return true;
@@ -292,17 +292,38 @@ function conJSON() {
         localStorage.setItem("sumAIUid", aiuID);
         localStorage.setItem("sumAIUname", aiuName);
         localStorage.setItem("sumAIUmail", aiuEmail);
-    } else {
-        AIU = 1;
+    } 
+    else {
+        var id="s";//generate randomly
         var aipID = document.getElementById("aipId").value;
         var aipEmail = document.getElementById("aipEmail").value;
         var aipName = document.getElementById("aipName").value;
         var dpID = document.getElementById("dpID").value;
         var dpName = document.getElementById("dpName").value;
+        var dpType = "PPB Number";
+        var itemID = document.getElementById("itemInp").value;
         var itemtype = document.getElementById("itemtype").value;
         var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
         var submissionTime = new Date().toISOString();
 
+        var purposeDropdown = document.getElementById("purpose");
+        var selectedOptions = [];
+
+        purposeDropdown.addEventListener("change", function () {
+            // Get all the selected options in the dropdown menu
+            var selected = Array.from(purposeDropdown.selectedOptions);
+
+            // Clear the selectedOptions array
+            selectedOptions = [];
+
+            // Iterate over the selected options and store their values
+            selected.forEach(function (option) {
+                selectedOptions.push(option.value);
+            });
+
+            // Print the selected options to the console
+            console.log(selectedOptions);
+        });
         var userConsent = {
             id: aipID,
             aip: {
