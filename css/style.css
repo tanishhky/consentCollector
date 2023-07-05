@@ -79,7 +79,8 @@ h1{
   }
 
   .asterisk{
-    color: red
+    color: red;
+    padding:5px;
   }
 
   .tooltip-text {
@@ -159,4 +160,9 @@ label{
   margin-bottom: 0;
   width:100%;
 }
+
+/* #aiusec{
+  background-color: #0a9;
+  display: none;
+} */
 
