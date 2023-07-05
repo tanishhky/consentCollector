@@ -226,6 +226,7 @@ function validateForm() {
 
 function conJSON() {
     if (AIU == 2) {
+        // var id=;//generate randomly
         var aipID = document.getElementById("aipId").value;
         var aipEmail = document.getElementById("aipEmail").value;
         var aipName = document.getElementById("aipName").value;
@@ -234,8 +235,10 @@ function conJSON() {
         var aiuName = document.getElementById("aiuName").value;
         var dpID = document.getElementById("dpID").value;
         var dpName = document.getElementById("dpName").value;
+        var dpType="PPB Number";
+        var itemID=document.getElementById("itemInp").value;
         var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = document.getElementById("dateInput").value;
+        var expiryDate = new Date(getElementById("dateInput").value).toISOString();
         var submissionTime = new Date().toISOString();
 
         var userConsent = {
@@ -252,9 +255,11 @@ function conJSON() {
             },
             dataPrincipal: {
                 id: dpID,
+                idType:dpType,
                 name: dpName,
             },
-            itemId: "datakaveri.org/a3dca9dfbe40f76b863da69d0d7d6f7c984e93bf/rs.iudx.io/ResGrp",
+            // purposes:purpose,
+            itemId: itemID,
             itemType: itemtype,
             expiry: expiryDate,
             createdAt: submissionTime,
@@ -281,7 +286,7 @@ function conJSON() {
         var dpID = document.getElementById("dpID").value;
         var dpName = document.getElementById("dpName").value;
         var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = document.getElementById("dateInput").value;
+        var expiryDate = new Date(getElementById("dateInput").value).toISOString();
         var submissionTime = new Date().toISOString();
 
         var userConsent = {

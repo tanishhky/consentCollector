@@ -35,7 +35,8 @@ try {
     if (userConsentJSON) {
         userConsent = JSON.parse(userConsentJSON);
     }
-} catch (error) {
+} 
+catch (error) {
     console.error("Invalid JSON string in 'userConsent':", error);
 }
 
