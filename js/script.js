@@ -1,10 +1,12 @@
+const { v4: uuidv4 } = require('uuid');
+
 document.addEventListener("DOMContentLoaded", function () {
     var editCall = localStorage.getItem("editCall");
     if (editCall != 0) {
-        console.log("In");
         retainDetails();
-        console.log("OUT");
-    }
+        // return;
+    }    
+
 });
 
 var userConsent;
@@ -209,14 +211,7 @@ function validateAIU() {
 
 function validateForm() {
     console.log("entered validate form");
-    if (
-        validateEmail() &&
-        validateName() &&
-        validateUUID() &&
-        DPIDValidation() &&
-        DPnameValidation() &&
-        validateAIU()
-    ) {
+    if (validateEmail() && validateName() && validateUUID() && DPIDValidation() && DPnameValidation() && validateAIU()) {
         link.setAttribute("href", "Summary.html");
         conJSON();
     } else {
@@ -226,7 +221,7 @@ function validateForm() {
 
 function conJSON() {
     if (AIU == 2) {
-        // var id=;//generate randomly
+        var id="s";//generate randomly
         var aipID = document.getElementById("aipId").value;
         var aipEmail = document.getElementById("aipEmail").value;
         var aipName = document.getElementById("aipName").value;
@@ -235,14 +230,33 @@ function conJSON() {
         var aiuName = document.getElementById("aiuName").value;
         var dpID = document.getElementById("dpID").value;
         var dpName = document.getElementById("dpName").value;
-        var dpType="PPB Number";
-        var itemID=document.getElementById("itemInp").value;
+        var dpType = "PPB Number";
+        var itemID = document.getElementById("itemInp").value;
         var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = new Date(getElementById("dateInput").value).toISOString();
+        var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
         var submissionTime = new Date().toISOString();
 
+        var purposeDropdown = document.getElementById("purpose");
+        var selectedOptions = [];
+
+        purposeDropdown.addEventListener("change", function () {
+            // Get all the selected options in the dropdown menu
+            var selected = Array.from(purposeDropdown.selectedOptions);
+
+            // Clear the selectedOptions array
+            selectedOptions = [];
+
+            // Iterate over the selected options and store their values
+            selected.forEach(function (option) {
+                selectedOptions.push(option.value);
+            });
+
+            // Print the selected options to the console
+            console.log(selectedOptions);
+        });
+
         var userConsent = {
-            id: aipID,
+            id: id,
             aip: {
                 id: aipID,
                 email: aipEmail,
@@ -255,7 +269,7 @@ function conJSON() {
             },
             dataPrincipal: {
                 id: dpID,
-                idType:dpType,
+                idType: dpType,
                 name: dpName,
             },
             // purposes:purpose,
@@ -286,7 +300,7 @@ function conJSON() {
         var dpID = document.getElementById("dpID").value;
         var dpName = document.getElementById("dpName").value;
         var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = new Date(getElementById("dateInput").value).toISOString();
+        var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
         var submissionTime = new Date().toISOString();
 
         var userConsent = {

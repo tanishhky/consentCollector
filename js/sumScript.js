@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     var AIU = localStorage.getItem("AIU");
-    console.log(AIU);
     if (AIU != 2) {
         console.log("removing");
         console.log(AIU);
