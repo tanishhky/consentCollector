@@ -1,19 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     var AIU = localStorage.getItem("AIU");
     if (AIU != 2) {
-        console.log("removing");
-        console.log(AIU);
         document.getElementById("aiusec").style.display = "none";
-        console.log("removed");
     }
 });
 
-// Hide the AIU section if AIU is not 2
-// function checking(){
-// if (AIU != 2) {
-//   document.getElementById("aiusec").style.display = "none";
-// }
-// }
 var editCall = 0;
 var aipId = localStorage.getItem("sumID");
 var aipEmail = localStorage.getItem("sumEmail");

@@ -1,20 +1,25 @@
-// const { v4: uuidv4 } = require('uuid');
-
 document.addEventListener("DOMContentLoaded", function () {
     var editCall = localStorage.getItem("editCall");
     if (editCall != 0) {
         retainDetails();
-        // return;
-    }    
-
+    }
 });
 
-var userConsent; 
+var userConsent;
 var AIU;
 var checkAIUID, checkAIUEmail, checkAIUName;
 
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+}
+
+
 function isValidEmail(email) {
-    console.log("checking email format");
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
@@ -26,7 +31,6 @@ var link = document.getElementById("lynk");
 link.removeAttribute("href");
 
 function validateUUID() {
-    console.log("entered validate AIPID");
     var aid = document.getElementById("aipId").value;
     var reg =
         /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -42,11 +46,10 @@ function validateUUID() {
 }
 
 function validateEmail() {
-    console.log("entered validate AIP email");
     var emailInput = document.getElementById("aipEmail");
     var validationMessage = document.getElementById("emailValidationMessage");
 
-    if (isValidEmail(emailInput.value)) { 
+    if (isValidEmail(emailInput.value)) {
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
         return true;
@@ -58,7 +61,6 @@ function validateEmail() {
 }
 
 function validateName() {
-    console.log("entered validate AIP name");
     var nameInput = document.getElementById("aipName");
     var name = nameInput.value.trim();
     var vm = document.getElementById("nameValidationMessage");
@@ -73,7 +75,6 @@ function validateName() {
 }
 
 function DPIDValidation() {
-    console.log("entered DP ID Validation");
     var dpidInput = document.getElementById("dpID").value;
     var vm = document.getElementById("dpIDValidationMessage");
 
@@ -92,7 +93,6 @@ function DPIDValidation() {
 }
 
 function DPnameValidation() {
-    console.log("entered validate DP name");
     var nameInput = document.getElementById("dpName");
     var name = nameInput.value.trim();
     var vm = document.getElementById("nameValidationMessage");
@@ -106,7 +106,6 @@ function DPnameValidation() {
     }
 }
 function validateAIUID() {
-    console.log("entered validate aiuId");
     var uid = document.getElementById("aiuId").value;
     var reg2 =
         /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -128,7 +127,6 @@ function validateAIUID() {
 }
 
 function validateAIUName() {
-    console.log("entered validate aiuName");
     var nameInput = document.getElementById("aiuName");
     var name = nameInput.value.trim();
     var vm = document.getElementById("AIUNameValidationMessage");
@@ -137,11 +135,13 @@ function validateAIUName() {
         checkAIUName = -1;
         vm.innerText = "Invalid Length";
         return false;
-    } else if (name.length == 0) {
+    }
+    else if (name.length == 0) {
         checkAIUName = 0;
         vm.innerText = "";
         return true;
-    } else {
+    }
+    else {
         checkAIUName = 1;
         vm.innerText = "";
         return true;
@@ -149,7 +149,6 @@ function validateAIUName() {
 }
 
 function validateAIUEmail() {
-    console.log("entered validate aiumail");
     var emailInput = document.getElementById("aiuEmail");
     var validationMessage = document.getElementById(
         "AIUemailValidationMessage"
@@ -157,7 +156,6 @@ function validateAIUEmail() {
 
     if (isValidEmail(emailInput.value)) {
         checkAIUEmail = 1;
-        console.log("checking in if for valid mail or empty input");
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
         return true;
@@ -168,7 +166,6 @@ function validateAIUEmail() {
         return true;
     } else {
         checkAIUEmail = -1;
-        console.log("checking in else for invalid mail");
         validationMessage.innerText = "Invalid email address";
         emailInput.classList.add("is-invalid");
         return false;
@@ -180,80 +177,61 @@ function validateAIU() {
     validateAIUEmail();
     validateAIUID();
     validateAIUName();
-    console.log(checkAIUEmail);
-    console.log(checkAIUID);
-    console.log(checkAIUName);
 
     if (checkAIUEmail == 1 && checkAIUID == 1 && checkAIUName == 1) {
-        // console.log(validateAIUID());
-        // console.log(validateAIUName());
-        // console.log(validateAIUEmail());
-        console.log("all added");
         AIU = 2;
         return true;
-    } else if (checkAIUEmail == 0 && checkAIUID == 0 && checkAIUName == 0) {
-        console.log("ntg filled");
-        // console.log(validateAIUID());
-        // console.log(validateAIUName());
-        // console.log(validateAIUEmail());
+    }
+    else if (checkAIUEmail == 0 && checkAIUID == 0 && checkAIUName == 0) {
         AIU = 1;
         return true;
-    } else {
-        // console.log(validateAIUID());
-        // console.log(validateAIUName());
-        // console.log(validateAIUEmail());
-        console.log("incomplete data");
-
+    }
+    else {
         AIU = 0;
         return false;
     }
 }
 
 function validateForm() {
-    console.log("entered validate form");
     if (validateEmail() && validateName() && validateUUID() && DPIDValidation() && DPnameValidation() && validateAIU()) {
-        link.setAttribute("href", "Summary.html");
         conJSON();
+        //  link.setAttribute("href", "Summary.html");
+
     } else {
         alert("Please fill valid details");
     }
 }
 
 function conJSON() {
+    var id = uuidv4();
     if (AIU == 2) {
-        var id="s";//generate randomly
-        var aipID = document.getElementById("aipId").value;
-        var aipEmail = document.getElementById("aipEmail").value;
-        var aipName = document.getElementById("aipName").value;
-        var aiuID = document.getElementById("aiuId").value;
-        var aiuEmail = document.getElementById("aiuEmail").value;
-        var aiuName = document.getElementById("aiuName").value;
-        var dpID = document.getElementById("dpID").value;
-        var dpName = document.getElementById("dpName").value;
-        var dpType = "PPB Number";
-        var itemID = document.getElementById("itemInp").value;
-        var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
-        var submissionTime = new Date().toISOString();
+        // var id = id;
+        // var aipID = document.getElementById("aipId").value;
+        // var aipEmail = document.getElementById("aipEmail").value;
+        // var aipName = document.getElementById("aipName").value;
+        // var aiuID = document.getElementById("aiuId").value;
+        // var aiuEmail = document.getElementById("aiuEmail").value;
+        // var aiuName = document.getElementById("aiuName").value;
+        // var dpID = document.getElementById("dpID").value;
+        // var dpName = document.getElementById("dpName").value;
+        // var dpType = "PPB Number";
+        // var itemID = document.getElementById("itemInp").value;
+        // var itemtype = document.getElementById("itemtype").value;
+        // var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
+        // var submissionTime = new Date().toISOString();
 
-        var purposeDropdown = document.getElementById("purpose");
+        var dropdown = document.getElementById("purpose");
         var selectedOptions = [];
 
-        purposeDropdown.addEventListener("change", function () {
-            // Get all the selected options in the dropdown menu
-            var selected = Array.from(purposeDropdown.selectedOptions);
 
-            // Clear the selectedOptions array
-            selectedOptions = [];
+        for (let i = 0; i < dropdown.length; i++) {
+            let key = dropdown.value[i];
+            let value = document.getElementById(key).innerText;
+            selectedOptions.push(({ code: key, name: value }));
+        }
+        console.log(selectedOptions);
 
-            // Iterate over the selected options and store their values
-            selected.forEach(function (option) {
-                selectedOptions.push(option.value);
-            });
 
-            // Print the selected options to the console
-            console.log(selectedOptions);
-        });
 
         var userConsent = {
             id: id,
@@ -272,7 +250,7 @@ function conJSON() {
                 idType: dpType,
                 name: dpName,
             },
-            // purposes:purpose,
+            purposes: selectedOptions,
             itemId: itemID,
             itemType: itemtype,
             expiry: expiryDate,
@@ -285,16 +263,16 @@ function conJSON() {
         localStorage.setItem("sumAIPname", aipName);
         localStorage.setItem("sumDPid", dpID);
         localStorage.setItem("sumDPname", dpName);
-        localStorage.setItem("sumItemId", "To be asked");
+        localStorage.setItem("sumItemId", itemID);
         localStorage.setItem("sumItemType", itemtype);
         localStorage.setItem("sumArtifactExp", expiryDate);
-        localStorage.setItem("sumPurpose", "working");
+        localStorage.setItem("sumPurpose", purpose);
         localStorage.setItem("sumAIUid", aiuID);
         localStorage.setItem("sumAIUname", aiuName);
         localStorage.setItem("sumAIUmail", aiuEmail);
-    } 
+    }
     else {
-        var id="s";//generate randomly
+        var id = id;//generate randomly
         var aipID = document.getElementById("aipId").value;
         var aipEmail = document.getElementById("aipEmail").value;
         var aipName = document.getElementById("aipName").value;
@@ -306,26 +284,20 @@ function conJSON() {
         var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
         var submissionTime = new Date().toISOString();
 
-        var purposeDropdown = document.getElementById("purpose");
+        var dropdown = document.getElementById("purpose");
         var selectedOptions = [];
 
-        purposeDropdown.addEventListener("change", function () {
-            // Get all the selected options in the dropdown menu
-            var selected = Array.from(purposeDropdown.selectedOptions);
 
-            // Clear the selectedOptions array
-            selectedOptions = [];
+        for (let i = 0; i < dropdown.length; i++) {
+            let key = dropdown.value[i];
+            let value = document.getElementById(key).innerText;
+            selectedOptions.push(({ code: key, name: value }));
+        }
+        console.log(selectedOptions);
 
-            // Iterate over the selected options and store their values
-            selected.forEach(function (option) {
-                selectedOptions.push(option.value);
-            });
 
-            // Print the selected options to the console
-            console.log(selectedOptions);
-        });
         var userConsent = {
-            id: aipID,
+            id: id,
             aip: {
                 id: aipID,
                 email: aipEmail,
@@ -333,9 +305,11 @@ function conJSON() {
             },
             dataPrincipal: {
                 id: dpID,
+                idType: dpType,
                 name: dpName,
             },
-            itemId: "datakaveri.org/a3dca9dfbe40f76b863da69d0d7d6f7c984e93bf/rs.iudx.io/ResGrp",
+            purposes: selectedOptions,
+            itemId: itemID,
             itemType: itemtype,
             expiry: expiryDate,
             createdAt: submissionTime,
@@ -347,10 +321,10 @@ function conJSON() {
         localStorage.setItem("sumAIPname", aipName);
         localStorage.setItem("sumDPid", dpID);
         localStorage.setItem("sumDPname", dpName);
-        localStorage.setItem("sumItemId", "To be asked");
+        localStorage.setItem("sumItemId", itemID);
         localStorage.setItem("sumItemType", itemtype);
         localStorage.setItem("sumArtifactExp", expiryDate);
-        localStorage.setItem("sumPurpose", "working");
+        localStorage.setItem("sumPurpose", purpose);
     }
 
     localStorage.setItem("AIU", AIU);
