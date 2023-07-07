@@ -10,14 +10,15 @@ var AIU;
 var checkAIUID, checkAIUEmail, checkAIUName;
 
 function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-        .replace(/[xy]/g, function (c) {
-            const r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+            const r = (Math.random() * 16) | 0,
+                v = c == "x" ? r : (r & 0x3) | 0x8;
             return v.toString(16);
-        });
+        }
+    );
 }
-
 
 function isValidEmail(email) {
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -95,7 +96,7 @@ function DPIDValidation() {
 function DPnameValidation() {
     var nameInput = document.getElementById("dpName");
     var name = nameInput.value.trim();
-    var vm = document.getElementById("nameValidationMessage");
+    var vm = document.getElementById("dpNameValidationMessage");
 
     if (name.length > 100 || name.length == 0) {
         vm.innerText = "Invalid Length";
@@ -105,6 +106,65 @@ function DPnameValidation() {
         return true;
     }
 }
+
+function ExpriyDateValidation() {
+    var selectExp = document.getElementById("dateInput");
+    var vm = document.getElementById("ExpiryValidationMessage");
+    if (selectExp.value.length == 0) {
+        vm.innerText = "Please enter a valid expiry date";
+        return false;
+    } else {
+        vm.innerText = "";
+        return true;
+    }
+}
+
+function itemIdValidation() {
+    var itemid = document.getElementById("itemInp");
+    var vm = document.getElementById("itemIDValidationMessage");
+    var iid = itemid.value.trim();
+
+    if (iid.length > 100 || iid.length == 0) {
+        vm.innerText = "Invalid Length";
+        return false;
+    } else {
+        vm.innerText = "";
+        return true;
+    }
+}
+
+function itemTypeValidation() {
+    var itype = document.getElementById("itemtype");
+    // var vm = document.getElementById("itemtypeValidationMessage");
+
+    // if (itype.value == 0) {
+    //     vm.innerText = "Please select an item type";
+    //     return false;
+    if (itype.value == undefined || itype.value.length==0) {
+        document.getElementById("itemtypeValidationMessage").textContent =
+            "Please select an item type";
+        return false;
+    } 
+    else {
+        document.getElementById("itemtypeValidationMessage").textContent = "";
+        return true;
+    }
+
+}
+function validatePurposes() {
+    var purposeSelect = document.getElementById("purpose");
+
+    if (purposeSelect.value == undefined||purposeSelect.value.length==0) {
+        document.getElementById("validatePurposes").textContent =
+            "Please select at least one purpose.";
+        return false;
+    } 
+    else {
+        document.getElementById("validatePurposes").textContent = "";
+        return true;
+    }
+}
+
 function validateAIUID() {
     var uid = document.getElementById("aiuId").value;
     var reg2 =
@@ -117,7 +177,7 @@ function validateAIUID() {
         return true;
     } else if (uid.length == 0) {
         checkAIUID = 0;
-        validationMessage2.innerText = "";
+        validationMessage2.innerText = "Invalid Length";
         return true;
     } else {
         checkAIUID = -1;
@@ -135,13 +195,11 @@ function validateAIUName() {
         checkAIUName = -1;
         vm.innerText = "Invalid Length";
         return false;
-    }
-    else if (name.length == 0) {
+    } else if (name.length == 0) {
         checkAIUName = 0;
-        vm.innerText = "";
+        vm.innerText = "Invalid Length";
         return true;
-    }
-    else {
+    } else {
         checkAIUName = 1;
         vm.innerText = "";
         return true;
@@ -161,7 +219,7 @@ function validateAIUEmail() {
         return true;
     } else if (emailInput.value === "") {
         checkAIUEmail = 0;
-        validationMessage.innerText = "";
+        validationMessage.innerText = "Invalid email address";
         emailInput.classList.remove("is-invalid");
         return true;
     } else {
@@ -181,22 +239,30 @@ function validateAIU() {
     if (checkAIUEmail == 1 && checkAIUID == 1 && checkAIUName == 1) {
         AIU = 2;
         return true;
-    }
-    else if (checkAIUEmail == 0 && checkAIUID == 0 && checkAIUName == 0) {
+    } else if (checkAIUEmail == 0 && checkAIUID == 0 && checkAIUName == 0) {
         AIU = 1;
         return true;
-    }
-    else {
+    } else {
         AIU = 0;
         return false;
     }
 }
 
 function validateForm() {
-    if (validateEmail() && validateName() && validateUUID() && DPIDValidation() && DPnameValidation() && validateAIU()) {
+    if (
+        validateEmail() &&
+        validateName() &&
+        validateUUID() &&
+        DPIDValidation() &&
+        DPnameValidation() &&
+        validateAIU() &&
+        ExpriyDateValidation() &&
+        itemIdValidation() &&
+        itemTypeValidation() &&
+        validatePurposes()
+    ) {
         conJSON();
         link.setAttribute("href", "Summary.html");
-
     } else {
         alert("Please fill valid details");
     }
@@ -220,7 +286,7 @@ function conJSON() {
         // var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
         // var submissionTime = new Date().toISOString();
 
-        var dropdown = document.getElementById('purpose');
+        var dropdown = document.getElementById("purpose");
         var selectedpurposes = [];
         for (let i = 0; i < dropdown.length; i++) {
             if (dropdown.options[i].isSelected) {
@@ -230,9 +296,8 @@ function conJSON() {
                 console.log(value);
                 selectedpurposes.push({ code: key, name: value });
             }
-
         }
-        
+
         var userConsent = {
             id: id,
             aip: {
@@ -242,25 +307,25 @@ function conJSON() {
             },
             aiu: {
                 id: document.getElementById("aiuId").value,
-                email:  document.getElementById("aiuEmail").value,
+                email: document.getElementById("aiuEmail").value,
                 name: document.getElementById("aiuName").value,
             },
             dataPrincipal: {
                 id: document.getElementById("dpID").value,
-                idType:  "PPB Number",
+                idType: "PPB Number",
                 name: document.getElementById("dpName").value,
             },
             purposes: selectedpurposes,
             itemId: document.getElementById("itemInp").value,
             itemType: document.getElementById("itemtype").value,
-            expiry: new Date(document.getElementById("dateInput").value).toISOString(),
+            expiry: new Date(
+                document.getElementById("dateInput").value
+            ).toISOString(),
             createdAt: new Date().toISOString(),
         };
 
         localStorage.clear();
-    }
-
-    else {
+    } else {
         var id = id;
         var aipID = document.getElementById("aipId").value;
         var aipEmail = document.getElementById("aipEmail").value;
@@ -270,12 +335,13 @@ function conJSON() {
         var dpType = "PPB Number";
         var itemID = document.getElementById("itemInp").value;
         var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
+        var expiryDate = new Date(
+            document.getElementById("dateInput").value
+        ).toISOString();
         var submissionTime = new Date().toISOString();
 
         var dropdown = document.getElementById("purpose");
         var selectedOptions = [];
-
 
         for (let i = 0; i < dropdown.length; i++) {
             if (dropdown.options[i].isSelected) {
@@ -286,7 +352,6 @@ function conJSON() {
             }
         }
         console.log(selectedOptions);
-
 
         var userConsent = {
             id: id,
@@ -314,7 +379,6 @@ function conJSON() {
     localStorage.setItem("userConsent", JSON.stringify(userConsent));
 }
 
-
 function retainDetails() {
     editCall = 1;
     localStorage.setItem("editCall", editCall);
@@ -325,8 +389,27 @@ function retainDetails() {
     document.getElementById("dpName").value = userConsent.dataPrincipal.name;
     document.getElementById("itemInp").value = userConsent.itemId;
     document.getElementById("itemtype").value = userConsent.itemType;
-    document.getElementById("dateInput").value = userConsent.expiry;
+    document.getElementById("dateInput").value = new Date(userConsent.expiry).toISOString().split("T")[0];
+    document.getElementById("purpose").value = retainPurposes();
     document.getElementById("aiuId").value = userConsent.aiu.id;
     document.getElementById("aiuName").value = userConsent.aiu.name;
     document.getElementById("aiuEmail").value = userConsent.aiu.email;
+}
+function retainPurposes() {
+    for (let i = 0;i < document.getElementById("purpose").options.length;i++) {
+        for (let j = 0; j < userConsent.purposes.length; j++) {
+            if (document.getElementById("purpose").options[i] == userConsent.purposes[j].code) {
+                document.getElementById("purpose").options[i].isSelected = true;
+            }
+        }
+    }
+}
+
+function retainItemType(){
+    for (let i = 0; i < document.getElementById('itemtype').options.length; i++) {
+        if (document.getElementById('itemtype').options[i].value==userConsent.itemType) {
+            document.getElementById('itemtype').options[i].isSelected=true;
+            break;
+        }
+    }
 }

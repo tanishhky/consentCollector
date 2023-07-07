@@ -90,7 +90,8 @@
                             Artifact Expiry
                             <span class="asterisk">&nbsp*</span>
                         </span>
-                        <input type="date" class="form-control" onkeydown="return false" id="dateInput" required>
+                        <input type="date" class="form-control" onkeydown="return false" id="dateInput" onchange="ExpriyDateValidation()" required>
+                        <span id="ExpiryValidationMessage"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -99,17 +100,18 @@
                             Item Id
                             <span class="asterisk">&nbsp*</span>
                         </span>
-                        <input type="text" class="form-control" id="itemInp">
+                        <input type="text" class="form-control" id="itemInp" onchange="itemIdValidation">
+                        <span id=itemIDValidationMessage></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-3">
                         <label class="input-group-text">Item Type</label>
-                        <select class="form-select p-0" id="itemtype">
-                            <option value="">--SELECT ITEM TYPE--</option>
+                        <select class="form-select p-0" id="itemtype" onchange="ItemTypeValidation()">
                             <option value="resource1">Resource1</option>
                             <option value="resource_group">Resource Group</option>
                         </select>
+                        <span id="itemtypeValidationMessage"></span>
                     </div>
                 </div>
 
@@ -119,7 +121,7 @@
                             Purposes
                             <span class="asterisk">&nbsp*</span>
                         </label>
-                        <select multiple id="purpose" class="pp" data-search="false" data-silent-initial-value-set="true">
+                        <select multiple id="purpose" class="pp" data-search="false" data-silent-initial-value-set="true" onchange="validatePurposes()">
                             <option value="B1" id="B1">Agricultural credit (code B1)</option>
                             <option value="B2" id="B2">Insurance (code B2)</option>
                             <option value="B3" id="B3">Logistics(code B3)</option>
@@ -137,6 +139,7 @@
                             <option value="G4" id="G4">Education (code G4)</option>
                             <option value="G5" id="G5">Data Principal use (code G5)</option>
                         </select>
+                        <span id="validatePurposes"></span>
                     </div>
                 </div>
             </div>
@@ -158,8 +161,9 @@
                             AIU Id
                         </span>
                         <input type="text" class="form-control" id="aiuId" onchange="validateAIUID()">
-                        <span id="AIUIDValidationMessage"></span>
+                        
                     </div>
+                    <span id="AIUIDValidationMessage"></span>
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-3">

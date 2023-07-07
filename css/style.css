@@ -153,7 +153,7 @@ label{
 }
 
 
-#AIUIDValidationMessage,#AIUNameValidationMessage,#AIUemailValidationMessage,#uuidValidationMessage,#nameValidationMessage,#emailValidationMessage,#dpIDValidationMessage{
+#AIUIDValidationMessage,#AIUNameValidationMessage,#AIUemailValidationMessage,#uuidValidationMessage,#nameValidationMessage,#emailValidationMessage,#dpIDValidationMessage,#dpNameValidationMessage,#ExpiryValidationMessage,#itemIDValidationMessage,#itemtypeValidationMessage,#validatePurposes{
   color:red;
   font-size:12px;
   margin-top:0.25rem;
