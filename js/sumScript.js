@@ -6,42 +6,44 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 var editCall = 0;
-var aipId = localStorage.getItem("sumID");
-var aipEmail = localStorage.getItem("sumEmail");
-var aipName = localStorage.getItem("sumAIPname");
-var dpID = localStorage.getItem("sumDPid");
-var dpName = localStorage.getItem("sumDPname");
-var itemType = localStorage.getItem("sumItemType");
-var itemID = localStorage.getItem("sumItemId");
-var artifactExp = localStorage.getItem("sumArtifactExp");
-var purpose = localStorage.getItem("sumPurpose");
-var aiuID = localStorage.getItem("sumAIUid");
-var aiuName = localStorage.getItem("sumAIUname");
-var aiuEmail = localStorage.getItem("sumAIUmail");
+// var aipId = localStorage.getItem("sumID");
+// var aipEmail = localStorage.getItem("sumEmail");
+// var aipName = localStorage.getItem("sumAIPname");
+// var dpID = localStorage.getItem("sumDPid");
+// var dpName = localStorage.getItem("sumDPname");
+// var itemType = localStorage.getItem("sumItemType");
+// var itemID = localStorage.getItem("sumItemId");
+// var artifactExp = localStorage.getItem("sumArtifactExp");
+// var purpose = localStorage.getItem("sumPurpose");
+// var aiuID = localStorage.getItem("sumAIUid");
+// var aiuName = localStorage.getItem("sumAIUname");
+// var aiuEmail = localStorage.getItem("sumAIUmail");
 var userConsent;
 
 try {
     var userConsentJSON = localStorage.getItem("userConsent");
     if (userConsentJSON) {
         userConsent = JSON.parse(userConsentJSON);
+        console.log("data fetched");
     }
 } 
 catch (error) {
     console.error("Invalid JSON string in 'userConsent':", error);
 }
 
-document.getElementById("sumAIPid").textContent = aipId;
-document.getElementById("sumAIPmail").textContent = aipEmail;
-document.getElementById("sumAIPname").textContent = aipName;
-document.getElementById("sumDPid").textContent = dpID;
-document.getElementById("sumDPname").textContent = dpName;
-document.getElementById("sumItemType").textContent = itemType;
-document.getElementById("sumItemId").textContent = itemID;
-document.getElementById("sumExpiry").textContent = artifactExp;
-document.getElementById("sumPurpose").textContent = purpose;
-document.getElementById("sumAIUid").textContent = aiuID;
-document.getElementById("sumAIUname").textContent = aiuName;
-document.getElementById("sumAIUmail").textContent = aiuEmail;
+document.getElementById("sumAIPid").textContent=userConsent.aip.id;
+document.getElementById("sumAIPmail").textContent = userConsent.aip.email;
+document.getElementById("sumAIPname").textContent = userConsent.aip.name;
+document.getElementById("sumDPid").textContent = userConsent.dataPrincipal.id;
+document.getElementById("sumDPname").textContent = userConsent.dataPrincipal.name;
+document.getElementById("sumItemType").textContent = userConsent.itemType;
+document.getElementById("sumItemId").textContent = userConsent.itemID;
+document.getElementById("sumExpiry").textContent = userConsent.expiry;
+// document.getElementById("sumPurpose").textContent = purpose;
+document.getElementById("sumAIUid").textContent = userConsent.aiu.id;
+document.getElementById("sumAIUname").textContent = userConsent.aiu.name;
+document.getElementById("sumAIUmail").textContent = userConsent.aiu.email;
+
 
 if (userConsent) {
     var blob = new Blob([JSON.stringify(userConsent)], {
@@ -49,24 +51,45 @@ if (userConsent) {
     });
     var downloadLink = document.createElement("a");
     downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = aipName + ".json";
+    downloadLink.download = userConsent.aip.name; + ".json";
     document.getElementById("downloadJSON").addEventListener("click", () => {
+        // console.log("hi");
         downloadLink.click();
     });
 }
+// if (userConsent) {
+//     console.log("1");
+//     var blob = new Blob([JSON.stringify(userConsent)], {
+//         type: "application/json",
+//         console.log("2");
+//     });
+//     var downloadLink = document.createElement("a");
+//     console.log("3");
+//     downloadLink.href = URL.createObjectURL(blob);
+//     console.log("4");
+//     downloadLink.download = aipName + ".json";
+//     console.log("5");
+//     document.getElementById("downloadJSON").addEventListener("click", () => {
+//         console.log("6");
+//         downloadLink.click();
+//         console.log("7");
+//     });
+// }
 
 function retainDetails() {
     editCall = 1;
     localStorage.setItem("editCall", editCall);
-    document.getElementById("aipId").value = aipId;
-    document.getElementById("aipName").value = aipName;
-    document.getElementById("aipEmail").value = aipEmail;
-    document.getElementById("dpID").value = dpID;
-    document.getElementById("dpName").value = dpName;
-    document.getElementById("itemInp").value = itemID;
-    document.getElementById("itemtype").value = itemType;
-    document.getElementById("dateInput").value = artifactExp;
-    document.getElementById("aiuId").value = aiuID;
-    document.getElementById("aiuName").value = aiuName;
-    document.getElementById("aiuEmail").value = aiuEmail;
+    document.getElementById("aipId").value = userConsent.aip.id
+    document.getElementById("aipName").value = userConsent.aip.name;
+    document.getElementById("aipEmail").value = userConsent.aip.email;
+    document.getElementById("dpID").value = userConsent.dataPrincipal.id;
+    document.getElementById("dpName").value = userConsent.dataPrincipal.name;
+    document.getElementById("itemInp").value = userConsent.itemId;
+    document.getElementById("itemtype").value = userConsent.itemType;
+    document.getElementById("dateInput").value = userConsent.expriy;
+    document.getElementById("aiuId").value = userConsent.aiu.id
+    document.getElementById("aiuName").value = userConsent.aiu.name;
+    document.getElementById("aiuEmail").value = userConsent.aiu.email;
 }
+
+
