@@ -195,7 +195,7 @@ function validateAIU() {
 function validateForm() {
     if (validateEmail() && validateName() && validateUUID() && DPIDValidation() && DPnameValidation() && validateAIU()) {
         conJSON();
-        //  link.setAttribute("href", "Summary.html");
+        link.setAttribute("href", "Summary.html");
 
     } else {
         alert("Please fill valid details");
@@ -205,32 +205,31 @@ function validateForm() {
 function conJSON() {
     var id = uuidv4();
     if (AIU == 2) {
-        // var id = id;
-        // var aipID = document.getElementById("aipId").value;
-        // var aipEmail = document.getElementById("aipEmail").value;
-        // var aipName = document.getElementById("aipName").value;
-        // var aiuID = document.getElementById("aiuId").value;
-        // var aiuEmail = document.getElementById("aiuEmail").value;
-        // var aiuName = document.getElementById("aiuName").value;
-        // var dpID = document.getElementById("dpID").value;
-        // var dpName = document.getElementById("dpName").value;
-        // var dpType = "PPB Number";
-        // var itemID = document.getElementById("itemInp").value;
-        // var itemtype = document.getElementById("itemtype").value;
-        // var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
-        // var submissionTime = new Date().toISOString();
-
-        var dropdown = document.getElementById("purpose");
-        var selectedOptions = [];
-
+        var id = id;
+        var aipID = document.getElementById("aipId").value;
+        var aipEmail = document.getElementById("aipEmail").value;
+        var aipName = document.getElementById("aipName").value;
+        var aiuID = document.getElementById("aiuId").value;
+        var aiuEmail = document.getElementById("aiuEmail").value;
+        var aiuName = document.getElementById("aiuName").value;
+        var dpID = document.getElementById("dpID").value;
+        var dpName = document.getElementById("dpName").value;
+        var dpType = "PPB Number";
+        var itemID = document.getElementById("itemInp").value;
+        var itemtype = document.getElementById("itemtype").value;
+        var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
+        var submissionTime = new Date().toISOString();
 
         for (let i = 0; i < dropdown.length; i++) {
-            let key = dropdown.value[i];
-            let value = document.getElementById(key).innerText;
-            selectedOptions.push(({ code: key, name: value }));
+
+            if (dropdown.options[i].isSelected) {
+                let key = dropdown.option[i].value;
+                let value = dropdown.options[i].label;
+                selectedOptions.push({ code: key, name: value });
+            }
+
         }
         console.log(selectedOptions);
-
 
 
         var userConsent = {
@@ -271,8 +270,9 @@ function conJSON() {
         localStorage.setItem("sumAIUname", aiuName);
         localStorage.setItem("sumAIUmail", aiuEmail);
     }
+
     else {
-        var id = id;//generate randomly
+        var id = id;
         var aipID = document.getElementById("aipId").value;
         var aipEmail = document.getElementById("aipEmail").value;
         var aipName = document.getElementById("aipName").value;
@@ -289,9 +289,12 @@ function conJSON() {
 
 
         for (let i = 0; i < dropdown.length; i++) {
-            let key = dropdown.value[i];
-            let value = document.getElementById(key).innerText;
-            selectedOptions.push(({ code: key, name: value }));
+            if (dropdown.options[i].isSelected) {
+                dropdown.options[i].isSelected;
+                let key = dropdown.option[i].value;
+                let value = dropdown.options[i].label;
+                selectedOptions.push({ code: key, name: value });
+            }
         }
         console.log(selectedOptions);
 
@@ -316,14 +319,14 @@ function conJSON() {
         };
 
         localStorage.clear();
-        localStorage.setItem("sumID", aipID);
-        localStorage.setItem("sumEmail", aipEmail);
-        localStorage.setItem("sumAIPname", aipName);
-        localStorage.setItem("sumDPid", dpID);
-        localStorage.setItem("sumDPname", dpName);
-        localStorage.setItem("sumItemId", itemID);
-        localStorage.setItem("sumItemType", itemtype);
-        localStorage.setItem("sumArtifactExp", expiryDate);
+        // localStorage.setItem("sumID", aipID);
+        // localStorage.setItem("sumEmail", aipEmail);
+        // localStorage.setItem("sumAIPname", aipName);
+        // localStorage.setItem("sumDPid", dpID);
+        // localStorage.setItem("sumDPname", dpName);
+        // localStorage.setItem("sumItemId", itemID);
+        // localStorage.setItem("sumItemType", itemtype);
+        // localStorage.setItem("sumArtifactExp", expiryDate);
         localStorage.setItem("sumPurpose", purpose);
     }
 
