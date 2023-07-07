@@ -206,23 +206,22 @@ function conJSON() {
     var id = uuidv4();
     if (AIU == 2) {
         var id = id;
-        var aipID = document.getElementById("aipId").value;
-        var aipEmail = document.getElementById("aipEmail").value;
-        var aipName = document.getElementById("aipName").value;
-        var aiuID = document.getElementById("aiuId").value;
-        var aiuEmail = document.getElementById("aiuEmail").value;
-        var aiuName = document.getElementById("aiuName").value;
-        var dpID = document.getElementById("dpID").value;
-        var dpName = document.getElementById("dpName").value;
-        var dpType = "PPB Number";
-        var itemID = document.getElementById("itemInp").value;
-        var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
-        var submissionTime = new Date().toISOString();
+        // var aipID = document.getElementById("aipId").value;
+        // var aipEmail = document.getElementById("aipEmail").value;
+        // var aipName = document.getElementById("aipName").value;
+        // var aiuID = document.getElementById("aiuId").value;
+        // var aiuEmail = document.getElementById("aiuEmail").value;
+        // var aiuName = document.getElementById("aiuName").value;
+        // var dpID = document.getElementById("dpID").value;
+        // var dpName = document.getElementById("dpName").value;
+        // var dpType = "PPB Number";
+        // var itemID = document.getElementById("itemInp").value;
+        // var itemtype = document.getElementById("itemtype").value;
+        // var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
+        // var submissionTime = new Date().toISOString();
 
         var dropdown = document.getElementById('purpose');
         var selectedpurposes = [];
-
         for (let i = 0; i < dropdown.length; i++) {
             if (dropdown.options[i].isSelected) {
                 var key = dropdown.options[i].value;
@@ -233,48 +232,32 @@ function conJSON() {
             }
 
         }
-
-
-
-
-
+        
         var userConsent = {
             id: id,
             aip: {
-                id: aipID,
-                email: aipEmail,
-                name: aipName,
+                id: document.getElementById("aipId").value,
+                email: document.getElementById("aipEmail").value,
+                name: document.getElementById("aipName").value,
             },
             aiu: {
-                id: aiuID,
-                email: aiuEmail,
-                name: aiuName,
+                id: document.getElementById("aiuId").value,
+                email:  document.getElementById("aiuEmail").value,
+                name: document.getElementById("aiuName").value,
             },
             dataPrincipal: {
-                id: dpID,
-                idType: dpType,
-                name: dpName,
+                id: document.getElementById("dpID").value,
+                idType:  "PPB Number",
+                name: document.getElementById("dpName").value,
             },
             purposes: selectedpurposes,
-            itemId: itemID,
-            itemType: itemtype,
-            expiry: expiryDate,
-            createdAt: submissionTime,
+            itemId: document.getElementById("itemInp").value,
+            itemType: document.getElementById("itemtype").value,
+            expiry: new Date(document.getElementById("dateInput").value).toISOString(),
+            createdAt: new Date().toISOString(),
         };
 
         localStorage.clear();
-        // localStorage.setItem("sumID", aipID);
-        // localStorage.setItem("sumEmail", aipEmail);
-        // localStorage.setItem("sumAIPname", aipName);
-        // localStorage.setItem("sumDPid", dpID);
-        // localStorage.setItem("sumDPname", dpName);
-        // localStorage.setItem("sumItemId", itemID);
-        // localStorage.setItem("sumItemType", itemtype);
-        // localStorage.setItem("sumArtifactExp", expiryDate);
-        // localStorage.setItem("sumPurpose", purpose);
-        // localStorage.setItem("sumAIUid", aiuID);
-        // localStorage.setItem("sumAIUname", aiuName);
-        // localStorage.setItem("sumAIUmail", aiuEmail);
     }
 
     else {
@@ -297,7 +280,7 @@ function conJSON() {
         for (let i = 0; i < dropdown.length; i++) {
             if (dropdown.options[i].isSelected) {
                 dropdown.options[i].isSelected;
-                let key = dropdown.option[i].value;
+                let key = dropdown.options[i].value;
                 let value = dropdown.options[i].label;
                 selectedOptions.push({ code: key, name: value });
             }
@@ -325,20 +308,12 @@ function conJSON() {
         };
 
         localStorage.clear();
-        // localStorage.setItem("sumID", aipID);
-        // localStorage.setItem("sumEmail", aipEmail);
-        // localStorage.setItem("sumAIPname", aipName);
-        // localStorage.setItem("sumDPid", dpID);
-        // localStorage.setItem("sumDPname", dpName);
-        // localStorage.setItem("sumItemId", itemID);
-        // localStorage.setItem("sumItemType", itemtype);
-        // localStorage.setItem("sumArtifactExp", expiryDate);
-        // localStorage.setItem("sumPurpose", purpose);
     }
 
     localStorage.setItem("AIU", AIU);
     localStorage.setItem("userConsent", JSON.stringify(userConsent));
 }
+
 
 function retainDetails() {
     editCall = 1;
@@ -348,7 +323,6 @@ function retainDetails() {
     document.getElementById("aipEmail").value = userConsent.aip.email;
     document.getElementById("dpID").value = userConsent.dataPrincipal.id;
     document.getElementById("dpName").value = userConsent.dataPrincipal.name;
-    // document.getElementById("dp").value = userConsent.dataPrincipal.name;
     document.getElementById("itemInp").value = userConsent.itemId;
     document.getElementById("itemtype").value = userConsent.itemType;
     document.getElementById("dateInput").value = userConsent.expiry;
