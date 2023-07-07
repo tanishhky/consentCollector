@@ -271,21 +271,6 @@ function validateForm() {
 function conJSON() {
     var id = uuidv4();
     if (AIU == 2) {
-        var id = id;
-        // var aipID = document.getElementById("aipId").value;
-        // var aipEmail = document.getElementById("aipEmail").value;
-        // var aipName = document.getElementById("aipName").value;
-        // var aiuID = document.getElementById("aiuId").value;
-        // var aiuEmail = document.getElementById("aiuEmail").value;
-        // var aiuName = document.getElementById("aiuName").value;
-        // var dpID = document.getElementById("dpID").value;
-        // var dpName = document.getElementById("dpName").value;
-        // var dpType = "PPB Number";
-        // var itemID = document.getElementById("itemInp").value;
-        // var itemtype = document.getElementById("itemtype").value;
-        // var expiryDate = new Date(document.getElementById("dateInput").value).toISOString();
-        // var submissionTime = new Date().toISOString();
-
         var dropdown = document.getElementById("purpose");
         var selectedpurposes = [];
         for (let i = 0; i < dropdown.length; i++) {
@@ -323,55 +308,42 @@ function conJSON() {
             ).toISOString(),
             createdAt: new Date().toISOString(),
         };
-
         localStorage.clear();
-    } else {
-        var id = id;
-        var aipID = document.getElementById("aipId").value;
-        var aipEmail = document.getElementById("aipEmail").value;
-        var aipName = document.getElementById("aipName").value;
-        var dpID = document.getElementById("dpID").value;
-        var dpName = document.getElementById("dpName").value;
-        var dpType = "PPB Number";
-        var itemID = document.getElementById("itemInp").value;
-        var itemtype = document.getElementById("itemtype").value;
-        var expiryDate = new Date(
-            document.getElementById("dateInput").value
-        ).toISOString();
-        var submissionTime = new Date().toISOString();
-
+    } 
+    
+    else {
         var dropdown = document.getElementById("purpose");
-        var selectedOptions = [];
-
+        var selectedpurposes = [];
         for (let i = 0; i < dropdown.length; i++) {
             if (dropdown.options[i].isSelected) {
-                dropdown.options[i].isSelected;
-                let key = dropdown.options[i].value;
-                let value = dropdown.options[i].label;
-                selectedOptions.push({ code: key, name: value });
+                var key = dropdown.options[i].value;
+                var value = dropdown.options[i].label;
+                console.log(key);
+                console.log(value);
+                selectedpurposes.push({ code: key, name: value });
             }
         }
-        console.log(selectedOptions);
 
         var userConsent = {
             id: id,
             aip: {
-                id: aipID,
-                email: aipEmail,
-                name: aipName,
+                id: document.getElementById("aipId").value,
+                email: document.getElementById("aipEmail").value,
+                name: document.getElementById("aipName").value,
             },
             dataPrincipal: {
-                id: dpID,
-                idType: dpType,
-                name: dpName,
+                id: document.getElementById("dpID").value,
+                idType: "PPB Number",
+                name: document.getElementById("dpName").value,
             },
-            purposes: selectedOptions,
-            itemId: itemID,
-            itemType: itemtype,
-            expiry: expiryDate,
-            createdAt: submissionTime,
+            purposes: selectedpurposes,
+            itemId: document.getElementById("itemInp").value,
+            itemType: document.getElementById("itemtype").value,
+            expiry: new Date(
+                document.getElementById("dateInput").value
+            ).toISOString(),
+            createdAt: new Date().toISOString(),
         };
-
         localStorage.clear();
     }
 
@@ -398,8 +370,10 @@ function retainDetails() {
 function retainPurposes() {
     for (let i = 0;i < document.getElementById("purpose").options.length;i++) {
         for (let j = 0; j < userConsent.purposes.length; j++) {
-            if (document.getElementById("purpose").options[i] == userConsent.purposes[j].code) {
-                document.getElementById("purpose").options[i].isSelected = true;
+            if (document.getElementById("purpose").options[i].value == userConsent.purposes[j].code) {
+                console.log(document.getElementById("purpose").options[i].value,userConsent.purposes[j].code)
+                document.getElementById("purpose").options[i].isSelected=true;
+                document.getElementById("purpose").options[i].isFocused=true;
             }
         }
     }
