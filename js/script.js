@@ -362,34 +362,33 @@ function retainDetails() {
     document.getElementById("dpID").value = userConsent.dataPrincipal.id;
     document.getElementById("dpName").value = userConsent.dataPrincipal.name;
     document.getElementById("itemInp").value = userConsent.itemId;
-    document.getElementById("itemtype").value = retainItemType();
+    document.querySelector("#itemtype").setValue(userConsent.itemType);
+    // console.log(userConsent);
     document.getElementById("dateInput").value = new Date(userConsent.expiry).toISOString().split("T")[0];
+   document.getElementById("purpose").setValue(getPurposeCodes());
     document.getElementById("aiuId").value = userConsent.aiu.id;
     document.getElementById("aiuName").value = userConsent.aiu.name;
     document.getElementById("aiuEmail").value = userConsent.aiu.email;
-    document.getElementById("purpose").value = retainPurposes();//document.getElementById('purpose').querySelector('input').setEnabledOptions()//;
+   //document.getElementById('purpose').querySelector('input').setEnabledOptions()//;
 
 }
-function retainPurposes() {
-    for (let i = 0;i < document.getElementById("purpose").options.length;i++) {
-        for (let j = 0; j < userConsent.purposes.length; j++) {
-            if (document.getElementById("purpose").options[i].value == userConsent.purposes[j].code) {
-                console.log(document.getElementById("purpose").options[i].value,userConsent.purposes[j].code)
-                document.getElementById("purpose").options[i].isSelected=true;
-                document.getElementById("purpose").options[i].isFocused=true;
-            }
-        }
-    }
-}
+function getPurposeCodes() {
+    const purposes = [];
+    for (let i = 0; i <userConsent.purposes.length; i++) {
+        purposes.push(userConsent.purposes[i].code);
+    };
+    return purposes;
+  }
+  
 
 
-function retainItemType() {
-    var itemType = userConsent.itemType;
-    var itemTypeSelect = document.getElementById("itemtype");
-    for (let i = 0; i < itemTypeSelect.options.length; i++) {
-        if (itemTypeSelect.options[i].value === itemType) {
-            itemTypeSelect.options[i].selected = true;
-            break;
-        }
-    }
-}
+// function retainItemType() {
+//     var itemType = userConsent.itemType;
+//     var itemTypeSelect = document.getElementById("itemtype");
+//     for (let i = 0; i < itemTypeSelect.options.length; i++) {
+//         if (itemTypeSelect.options[i].value === itemType) {
+//             itemTypeSelect.options[i].selected = true;
+//             break;
+//         }
+//     }
+// }
