@@ -1,8 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var editCall = localStorage.getItem("editCall");
-    if (editCall != 0) {
-        retainDetails();
+    // var editCall = localStorage.getItem("editCall");
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        console.log('Page was refreshed');
+        localStorage.clear();
+        document.querySelector('input').forEach((input)=>{
+            value="";
+        });
     }
+    retainDetails();
 });
 
 var userConsent;
@@ -135,12 +140,7 @@ function itemIdValidation() {
 
 function itemTypeValidation() {
     var itype = document.getElementById("itemtype");
-    // var vm = document.getElementById("itemtypeValidationMessage");
-
-    // if (itype.value == 0) {
-    //     vm.innerText = "Please select an item type";
-    //     return false;
-    if (itype.value == undefined || itype.value.length==0) {
+    if (itype.value == undefined||itype.value.length==0 ) {
         document.getElementById("itemtypeValidationMessage").textContent =
             "Please select an item type";
         return false;
@@ -351,16 +351,18 @@ function conJSON() {
     localStorage.setItem("userConsent", JSON.stringify(userConsent));
 }
 
+
+
 function retainDetails() {
-    editCall = 1;
-    localStorage.setItem("editCall", editCall);
+    //editCall = 1;
+    //localStorage.setItem("editCall", editCall);
     document.getElementById("aipId").value = userConsent.aip.id;
     document.getElementById("aipName").value = userConsent.aip.name;
     document.getElementById("aipEmail").value = userConsent.aip.email;
     document.getElementById("dpID").value = userConsent.dataPrincipal.id;
     document.getElementById("dpName").value = userConsent.dataPrincipal.name;
     document.getElementById("itemInp").value = userConsent.itemId;
-    document.getElementById("itemtype").value = userConsent.itemType;
+    document.getElementById("itemtype").value = retainItemType();
     document.getElementById("dateInput").value = new Date(userConsent.expiry).toISOString().split("T")[0];
     document.getElementById("aiuId").value = userConsent.aiu.id;
     document.getElementById("aiuName").value = userConsent.aiu.name;
@@ -371,12 +373,6 @@ function retainDetails() {
 function retainPurposes() {
     for (let i = 0;i < document.getElementById("purpose").options.length;i++) {
         for (let j = 0; j < userConsent.purposes.length; j++) {
-            // var purposeKeys = selectedpurposes.map(function(purpose) {
-            //     return purpose.code;
-            // });
-            
-            // console.log(purposeKeys);
-            
             if (document.getElementById("purpose").options[i].value == userConsent.purposes[j].code) {
                 console.log(document.getElementById("purpose").options[i].value,userConsent.purposes[j].code)
                 document.getElementById("purpose").options[i].isSelected=true;
@@ -386,18 +382,14 @@ function retainPurposes() {
     }
 }
 
-function retainItemType(){
-    for (let i = 0; i < document.getElementById('itemtype').options.length; i++) {
-        if (document.getElementById('itemtype').options[i].value==userConsent.itemType) {
-            document.getElementById('itemtype').options[i].isSelected=true;
+
+function retainItemType() {
+    var itemType = userConsent.itemType;
+    var itemTypeSelect = document.getElementById("itemtype");
+    for (let i = 0; i < itemTypeSelect.options.length; i++) {
+        if (itemTypeSelect.options[i].value === itemType) {
+            itemTypeSelect.options[i].selected = true;
             break;
         }
     }
 }
-
-// window.addEventListener("beforeunload", function() {
-//     localStorage.clear();
-//   }); 
-
-
-  
