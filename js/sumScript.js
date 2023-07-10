@@ -25,10 +25,14 @@ document.getElementById("sumDPname").textContent = userConsent.dataPrincipal.nam
 document.getElementById("sumItemType").textContent = userConsent.itemType;
 document.getElementById("sumItemId").textContent = userConsent.itemId;
 document.getElementById("sumExpiry").textContent = userConsent.expiry;
-document.getElementById("sumPurpose").textContent = userConsent.purposes;
+// document.getElementById("sumPurpose").textContent = userConsent.purposes;
 document.getElementById("sumAIUid").textContent = userConsent.aiu.id;
 document.getElementById("sumAIUname").textContent = userConsent.aiu.name;
 document.getElementById("sumAIUmail").textContent = userConsent.aiu.email;
+// Assuming "userConsent.purposes" is an array of objects with "code" and "name" properties
+var purposeText = userConsent.purposes.map(purpose => purpose.code + ": " + purpose.name).join("\n");
+document.getElementById("sumPurpose").textContent = purposeText;
+
 
 if (userConsent) {
     var blob = new Blob([JSON.stringify(userConsent)], {
@@ -42,3 +46,5 @@ if (userConsent) {
         downloadLink.click();
     });
 }
+
+// window.addEventListener("beforeunload", clearLocalStorageAndReload);

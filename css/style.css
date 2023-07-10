@@ -166,3 +166,6 @@ label{
   display: none;
 } */
 
+.purpose-text {
+  white-space: pre-line;
+}

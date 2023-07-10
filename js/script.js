@@ -154,7 +154,7 @@ function itemTypeValidation() {
 function validatePurposes() {
     var purposeSelect = document.getElementById("purpose");
 
-    if (purposeSelect.value == undefined||purposeSelect.value.length==0) {
+    if (purposeSelect.getSelectedOptions().length==0) {
         document.getElementById("validatePurposes").textContent =
             "Please select at least one purpose.";
         return false;
@@ -362,14 +362,21 @@ function retainDetails() {
     document.getElementById("itemInp").value = userConsent.itemId;
     document.getElementById("itemtype").value = userConsent.itemType;
     document.getElementById("dateInput").value = new Date(userConsent.expiry).toISOString().split("T")[0];
-    document.getElementById("purpose").value = retainPurposes();
     document.getElementById("aiuId").value = userConsent.aiu.id;
     document.getElementById("aiuName").value = userConsent.aiu.name;
     document.getElementById("aiuEmail").value = userConsent.aiu.email;
+    document.getElementById("purpose").value = retainPurposes();//document.getElementById('purpose').querySelector('input').setEnabledOptions()//;
+
 }
 function retainPurposes() {
     for (let i = 0;i < document.getElementById("purpose").options.length;i++) {
         for (let j = 0; j < userConsent.purposes.length; j++) {
+            // var purposeKeys = selectedpurposes.map(function(purpose) {
+            //     return purpose.code;
+            // });
+            
+            // console.log(purposeKeys);
+            
             if (document.getElementById("purpose").options[i].value == userConsent.purposes[j].code) {
                 console.log(document.getElementById("purpose").options[i].value,userConsent.purposes[j].code)
                 document.getElementById("purpose").options[i].isSelected=true;
@@ -387,3 +394,10 @@ function retainItemType(){
         }
     }
 }
+
+// window.addEventListener("beforeunload", function() {
+//     localStorage.clear();
+//   }); 
+
+
+  
