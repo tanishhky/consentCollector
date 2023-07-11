@@ -143,7 +143,6 @@ h1{
 
 .form-select{
   background-image: none;
-  /* width: 100%; */
 }
 
 
@@ -160,11 +159,6 @@ label{
   margin-bottom: 0;
   width:100%;
 }
-
-/* #aiusec{
-  background-color: #0a9;
-  display: none;
-} */
 
 .purpose-text {
   white-space: pre-line;

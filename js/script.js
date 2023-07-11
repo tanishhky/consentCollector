@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // var editCall = localStorage.getItem("editCall");
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
         console.log('Page was refreshed');
         localStorage.clear();
-        document.querySelector('input').forEach((input)=>{
-            value="";
+        document.querySelector('input').forEach((input) => {
+            value = "";
         });
     }
     retainDetails();
@@ -140,11 +139,11 @@ function itemIdValidation() {
 
 function itemTypeValidation() {
     var itype = document.getElementById("itemtype");
-    if (itype.value == undefined||itype.value.length==0 ) {
+    if (itype.value == undefined || itype.value.length == 0) {
         document.getElementById("itemtypeValidationMessage").textContent =
             "Please select an item type";
         return false;
-    } 
+    }
     else {
         document.getElementById("itemtypeValidationMessage").textContent = "";
         return true;
@@ -154,11 +153,11 @@ function itemTypeValidation() {
 function validatePurposes() {
     var purposeSelect = document.getElementById("purpose");
 
-    if (purposeSelect.getSelectedOptions().length==0) {
+    if (purposeSelect.getSelectedOptions().length == 0) {
         document.getElementById("validatePurposes").textContent =
             "Please select at least one purpose.";
         return false;
-    } 
+    }
     else {
         document.getElementById("validatePurposes").textContent = "";
         return true;
@@ -309,8 +308,8 @@ function conJSON() {
             createdAt: new Date().toISOString(),
         };
         localStorage.clear();
-    } 
-    
+    }
+
     else {
         var dropdown = document.getElementById("purpose");
         var selectedpurposes = [];
@@ -354,8 +353,6 @@ function conJSON() {
 
 
 function retainDetails() {
-    //editCall = 1;
-    //localStorage.setItem("editCall", editCall);
     document.getElementById("aipId").value = userConsent.aip.id;
     document.getElementById("aipName").value = userConsent.aip.name;
     document.getElementById("aipEmail").value = userConsent.aip.email;
@@ -363,32 +360,16 @@ function retainDetails() {
     document.getElementById("dpName").value = userConsent.dataPrincipal.name;
     document.getElementById("itemInp").value = userConsent.itemId;
     document.querySelector("#itemtype").setValue(userConsent.itemType);
-    // console.log(userConsent);
     document.getElementById("dateInput").value = new Date(userConsent.expiry).toISOString().split("T")[0];
-   document.getElementById("purpose").setValue(getPurposeCodes());
+    document.getElementById("purpose").setValue(getPurposeCodes());
     document.getElementById("aiuId").value = userConsent.aiu.id;
     document.getElementById("aiuName").value = userConsent.aiu.name;
     document.getElementById("aiuEmail").value = userConsent.aiu.email;
-   //document.getElementById('purpose').querySelector('input').setEnabledOptions()//;
-
 }
 function getPurposeCodes() {
     const purposes = [];
-    for (let i = 0; i <userConsent.purposes.length; i++) {
+    for (let i = 0; i < userConsent.purposes.length; i++) {
         purposes.push(userConsent.purposes[i].code);
     };
     return purposes;
-  }
-  
-
-
-// function retainItemType() {
-//     var itemType = userConsent.itemType;
-//     var itemTypeSelect = document.getElementById("itemtype");
-//     for (let i = 0; i < itemTypeSelect.options.length; i++) {
-//         if (itemTypeSelect.options[i].value === itemType) {
-//             itemTypeSelect.options[i].selected = true;
-//             break;
-//         }
-//     }
-// }
+}

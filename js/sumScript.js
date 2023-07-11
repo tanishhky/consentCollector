@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("aiusec").style.display = "none";
     }
 });
-//var editCall = 0;
+
 var userConsent;
 
 try {
@@ -45,5 +45,3 @@ if (userConsent) {
         downloadLink.click();
     });
 }
-
-// window.addEventListener("beforeunload", clearLocalStorageAndReload);

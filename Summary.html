@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary Page</title>
     <link rel="stylesheet" href="css/style.css  ">
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
-        >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+
 <body>
     <div class="container mt-3" style="box-shadow: 0 0 3px 0px gray !important;
     max-width: 900px;">
@@ -26,12 +24,13 @@
             <div class="col-lg-6 col-12 text-center">
                 <div class="card w-100 my-4" style="width: 18rem;">
                     <div class="card-body text-start" style="border-top: 3px solid red">
-                      <h5 class="card-title mb-3 text-center"><b> AIP Details</b></h5><hr>
-                      <p class="card-text">
+                        <h5 class="card-title mb-3 text-center"><b> AIP Details</b></h5>
+                        <hr>
+                        <p class="card-text">
                             <label for="" style="font-size: 14px;">AIP ID:</label> <span id="sumAIPid"></span> <br>
                             <label for="" style="font-size: 14px;">AIP Name:</label> <span id="sumAIPname"></span> <br>
                             <label for="" style="font-size: 14px;">AIP Email:</label> <span id="sumAIPmail"></span> <br>
-                      </p>
+                        </p>
                     </div>
 
                 </div>
@@ -39,12 +38,15 @@
             <div class="col-lg-6 col-12 text-center">
                 <div class="card w-100 my-4" style="width: 18rem;">
                     <div class="card-body text-start" style="border-top: 3px solid #0b457f">
-                      <h5 class="card-title mb-3 text-center"><b> Data Principal Details</b></h5><hr>
-                      <p class="card-text">
-                            <label for="" style="font-size: 14px;">Data Principal ID:</label> <span id="sumDPid"></span> <br>
-                            <label for="" style="font-size: 14px;">Data Principal Name:</label> <span id="sumDPname"></span> <br>
+                        <h5 class="card-title mb-3 text-center"><b> Data Principal Details</b></h5>
+                        <hr>
+                        <p class="card-text">
+                            <label for="" style="font-size: 14px;">Data Principal ID:</label> <span id="sumDPid"></span>
+                            <br>
+                            <label for="" style="font-size: 14px;">Data Principal Name:</label> <span
+                                id="sumDPname"></span> <br>
                             <!-- <label for="" style="font-size: 14px;">Data Principal Email:</label> <span id="sumDPmail"></span> <br> -->
-                      </p>
+                        </p>
                     </div>
 
                 </div>
@@ -52,13 +54,17 @@
             <div class="col-lg-6 col-12 text-center">
                 <div class="card w-100 my-4" style="width: 18rem;">
                     <div class="card-body text-start" style="border-top: 3px solid #0a9">
-                      <h5 class="card-title mb-3 text-center"><b> Additional Details</b></h5><hr>
-                      <p class="card-text">
+                        <h5 class="card-title mb-3 text-center"><b> Additional Details</b></h5>
+                        <hr>
+                        <p class="card-text">
                             <label for="" style="font-size: 14px;">Item ID:</label> <span id="sumItemId"></span> <br>
-                            <label for="" style="font-size: 14px;">Item Type:</label> <span id="sumItemType"></span> <br>
-                            <label for="" style="font-size: 14px;">Artifact Expiry:</label><span id="sumExpiry"></span><br>
-                            <label for="" style="font-size: 14px;">Purposes:</label> <span id="sumPurpose" class ="purpose-text"></span> <br>
-                      </p>
+                            <label for="" style="font-size: 14px;">Item Type:</label> <span id="sumItemType"></span>
+                            <br>
+                            <label for="" style="font-size: 14px;">Artifact Expiry:</label><span
+                                id="sumExpiry"></span><br>
+                            <label for="" style="font-size: 14px;">Purposes:</label> <span id="sumPurpose"
+                                class="purpose-text"></span> <br>
+                        </p>
                     </div>
 
                 </div>
@@ -66,24 +72,28 @@
             <div id="aiusec" class="col-lg-6 col-12 text-center">
                 <div class="card w-100 my-4" style="width: 18rem;">
                     <div class="card-body text-start" style="border-top: 3px solid #ae53e0">
-                      <h5 class="card-title mb-3 text-center"><b> AIU Details</b></h5><hr>
-                      <p class="card-text">
+                        <h5 class="card-title mb-3 text-center"><b> AIU Details</b></h5>
+                        <hr>
+                        <p class="card-text">
                             <label for="" style="font-size: 14px;">AIU ID:</label> <span id="sumAIUid"></span> <br>
                             <label for="" style="font-size: 14px;">AIU Name:</label> <span id="sumAIUname"></span> <br>
                             <label for="" style="font-size: 14px;">AIU Email:</label> <span id="sumAIUmail"></span> <br>
-                      </p>
+                        </p>
                     </div>
 
                 </div>
             </div>
 
             <div class="col-12 text-end">
-                <a class="btn btn-primary mb-4 submit" id="edtLink" style="background-color: #0a9; border: 0" type="button" href="index.html" onclick="retainDetails()">Edit</a>
-                <a href="#" id="downloadJSON" class="btn btn-primary mb-4 submit" style="background-color: #0a9; border: 0" type="button">Download JSON</a>
+                <a class="btn btn-primary mb-4 submit" id="edtLink" style="background-color: #0a9; border: 0"
+                    type="button" href="index.html" onclick="retainDetails()">Edit</a>
+                <a href="#" id="downloadJSON" class="btn btn-primary mb-4 submit"
+                    style="background-color: #0a9; border: 0" type="button">Download JSON</a>
             </div>
         </div>
     </div>
     <!-- <script src="js/script.js"></script> -->
     <script src="js/sumScript.js"></script>
 </body>
+
 </html>
