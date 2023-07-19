@@ -35,20 +35,20 @@ document.getElementById("dateInput").min = today;
 var link = document.getElementById("lynk");
 link.removeAttribute("href");
 
-function validateUUID() {
-    var aid = document.getElementById("aipId").value;
-    var reg =
-        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    var validationMessage = document.getElementById("uuidValidationMessage");
+// function validateUUID() {
+//     //var aid = document.getElementById("aipId").value;
+//     var reg =
+//         /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+//     var validationMessage = document.getElementById("uuidValidationMessage");
 
-    if (reg.test(aid)) {
-        validationMessage.innerText = "";
-        return true;
-    } else {
-        validationMessage.innerText = "Invalid UUID";
-        return false;
-    }
-}
+//     if (reg.test(aid)) {
+//         validationMessage.innerText = "";
+//         return true;
+//     } else {
+//         validationMessage.innerText = "Invalid UUID";
+//         return false;
+//     }
+// }
 
 function validateEmail() {
     var emailInput = document.getElementById("aipEmail");
@@ -140,8 +140,7 @@ function itemIdValidation() {
 function itemTypeValidation() {
     var itype = document.getElementById("itemtype");
     if (itype.value == undefined || itype.value.length == 0) {
-        document.getElementById("itemtypeValidationMessage").textContent =
-            "Please select an item type";
+        document.getElementById("itemtypeValidationMessage").textContent ="Please select an item type";
         return false;
     }
     else {
@@ -164,39 +163,24 @@ function validatePurposes() {
     }
 }
 
-function validateAIUID() {
-    var uid = document.getElementById("aiuId").value;
-    var reg2 =
-        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    var validationMessage2 = document.getElementById("AIUIDValidationMessage");
-
-    if (reg2.test(uid)) {
-        checkAIUID = 1;
-        validationMessage2.innerText = "";
-        return true;
-    } else if (uid.length == 0) {
-        checkAIUID = 0;
-        validationMessage2.innerText = "Invalid Length";
-        return true;
-    } else {
-        checkAIUID = -1;
-        validationMessage2.innerText = "Invalid UUID";
-        return false;
-    }
-}
-
 function validateAIUName() {
     var nameInput = document.getElementById("aiuName");
     var name = nameInput.value.trim();
     var vm = document.getElementById("AIUNameValidationMessage");
-
+    validateAIUEmail();
     if (name.length > 100) {
         checkAIUName = -1;
         vm.innerText = "Invalid Length";
         return false;
-    } else if (name.length == 0) {
+    } 
+    else if (name.length == 0) {
         checkAIUName = 0;
-        vm.innerText = "Invalid Length";
+        if (checkAIUEmail==checkAIUName) {
+            vm.innerText = "";
+        }
+        else{
+            vm.innerText = "Invalid Length";
+        }
         return true;
     } else {
         checkAIUName = 1;
@@ -210,14 +194,21 @@ function validateAIUEmail() {
     var validationMessage = document.getElementById(
         "AIUemailValidationMessage"
     );
-
+    validateName();
     if (isValidEmail(emailInput.value)) {
         checkAIUEmail = 1;
         validationMessage.innerText = "";
         emailInput.classList.remove("is-invalid");
         return true;
-    } else if (emailInput.value === "") {
+    } 
+    else if (emailInput.value === "") {
         checkAIUEmail = 0;
+        if (checkAIUEmail==checkAIUName) {
+            validationMessage.innerText = "";
+        }
+        else{
+            validationMessage.innerText = "Invalid Length";
+        }
         validationMessage.innerText = "Invalid email address";
         emailInput.classList.remove("is-invalid");
         return true;
@@ -232,16 +223,18 @@ function validateAIUEmail() {
 function validateAIU() {
     console.log("entered validate AIU");
     validateAIUEmail();
-    validateAIUID();
+    // validateAIUID();
     validateAIUName();
 
-    if (checkAIUEmail == 1 && checkAIUID == 1 && checkAIUName == 1) {
+    if (checkAIUEmail == 1 && checkAIUName == 1) {
         AIU = 2;
         return true;
-    } else if (checkAIUEmail == 0 && checkAIUID == 0 && checkAIUName == 0) {
+    } 
+    else if (checkAIUEmail == 0 && checkAIUName == 0) {
         AIU = 1;
         return true;
-    } else {
+    } 
+    else {
         AIU = 0;
         return false;
     }
@@ -251,7 +244,7 @@ function validateForm() {
     if (
         validateEmail() &&
         validateName() &&
-        validateUUID() &&
+        //validateUUID() &&
         DPIDValidation() &&
         DPnameValidation() &&
         validateAIU() &&
@@ -260,6 +253,7 @@ function validateForm() {
         itemTypeValidation() &&
         validatePurposes()
     ) {
+        console.log("checked");
         conJSON();
         link.setAttribute("href", "Summary.html");
     } else {
@@ -276,8 +270,6 @@ function conJSON() {
             if (dropdown.options[i].isSelected) {
                 var key = dropdown.options[i].value;
                 var value = dropdown.options[i].label;
-                console.log(key);
-                console.log(value);
                 selectedpurposes.push({ code: key, name: value });
             }
         }
@@ -285,12 +277,10 @@ function conJSON() {
         var userConsent = {
             id: id,
             aip: {
-                id: document.getElementById("aipId").value,
                 email: document.getElementById("aipEmail").value,
                 name: document.getElementById("aipName").value,
             },
             aiu: {
-                id: document.getElementById("aiuId").value,
                 email: document.getElementById("aiuEmail").value,
                 name: document.getElementById("aiuName").value,
             },
@@ -311,22 +301,20 @@ function conJSON() {
     }
 
     else {
+        console.log("starting conversion");
         var dropdown = document.getElementById("purpose");
         var selectedpurposes = [];
         for (let i = 0; i < dropdown.length; i++) {
             if (dropdown.options[i].isSelected) {
                 var key = dropdown.options[i].value;
                 var value = dropdown.options[i].label;
-                console.log(key);
-                console.log(value);
                 selectedpurposes.push({ code: key, name: value });
             }
         }
-
+        console.log("collected purposes");
         var userConsent = {
             id: id,
             aip: {
-                id: document.getElementById("aipId").value,
                 email: document.getElementById("aipEmail").value,
                 name: document.getElementById("aipName").value,
             },
@@ -339,21 +327,22 @@ function conJSON() {
             itemId: document.getElementById("itemInp").value,
             itemType: document.getElementById("itemtype").value,
             expiry: new Date(
-                document.getElementById("dateInput").value
-            ).toISOString(),
+                document.getElementById("dateInput").value).toISOString(),
             createdAt: new Date().toISOString(),
         };
+        console.log("made json");
         localStorage.clear();
     }
-
+    console.log("frst");
     localStorage.setItem("AIU", AIU);
+    console.log("scnd");
     localStorage.setItem("userConsent", JSON.stringify(userConsent));
+    console.log(AIU,userConsent);
 }
 
 
 
 function retainDetails() {
-    document.getElementById("aipId").value = userConsent.aip.id;
     document.getElementById("aipName").value = userConsent.aip.name;
     document.getElementById("aipEmail").value = userConsent.aip.email;
     document.getElementById("dpID").value = userConsent.dataPrincipal.id;
@@ -362,7 +351,6 @@ function retainDetails() {
     document.querySelector("#itemtype").setValue(userConsent.itemType);
     document.getElementById("dateInput").value = new Date(userConsent.expiry).toISOString().split("T")[0];
     document.getElementById("purpose").setValue(getPurposeCodes());
-    document.getElementById("aiuId").value = userConsent.aiu.id;
     document.getElementById("aiuName").value = userConsent.aiu.name;
     document.getElementById("aiuEmail").value = userConsent.aiu.email;
 }
