@@ -23,15 +23,26 @@
             <hr>
             <div class="row aip-details w-100 my-4">
                 <div class="col-lg-6 col-12">
-                    <h1 class="ribbon">Details</h1>
+                    <h1 class="ribbon"> AIP Details</h1>
                 </div>
-                <div class="col-6 justify-content-lg-end d-flex" style="font-size: 12px;">
+                <div class="cols justify-content-lg-end d-flex" style="font-size: 12px;">
                     <span class="asterisk">* Required Fields</span>
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-4">
+                        <span class="input-group-text">
+                            AIP Name
+                            <span class="asterisk">&nbsp*</span>
+                        </span>
+                        <input type="text" class="form-control" id="aipName" oninput="validateName()">
+                        <span id="nameValidationMessage"></span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-12">
+                    <!-- <div class="input-group mb-4">
                         <span class="input-group-text hover-text m-0">
                             AIP Id
                             <span class="asterisk">&nbsp*</span>
@@ -39,9 +50,8 @@
                         <input type="text" class="form-control" id="aipId" oninput="validateUUID()">
                         <span id="uuidValidationMessage"></span>
 
-                    </div>
-                </div>
-                <div class="col-lg-6 col-12">
+                    </div> -->
+
                     <div class="input-group mb-4">
                         <span class="input-group-text">
                             AIP Email
@@ -53,14 +63,13 @@
 
                     </div>
                 </div>
-                <div class="col-lg-6 col-12">
-                    <div class="input-group mb-4">
-                        <span class="input-group-text">
-                            AIP Name
-                            <span class="asterisk">&nbsp*</span>
-                        </span>
-                        <input type="text" class="form-control" id="aipName" oninput="validateName()">
-                        <span id="nameValidationMessage"></span>
+                
+                <div class="row aip-details w-100 my-4">
+                    <div class="col-lg-6 col-12">
+                        <h1 class="ribbon">Data Principal Details</h1>
+                    </div>
+                    <div class="cols justify-content-lg-end d-flex" style="font-size: 12px;">
+                        <span class="asterisk">*Required fields</span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -73,7 +82,6 @@
                         <span id="dpIDValidationMessage"></span>
                     </div>
                 </div>
-
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-4">
                         <span class="input-group-text">
@@ -84,7 +92,14 @@
                         <span id="dpNameValidationMessage"></span>
                     </div>
                 </div>
-
+                <div class="row aip-details w-100 my-4">
+                    <div class="col-lg-6 col-12">
+                        <h1 class="ribbon"> Artifact Details</h1>
+                    </div>
+                    <div class="cols justify-content-lg-end d-flex" style="font-size: 12px;">
+                        <span class="asterisk">* Required Fields</span>
+                    </div>
+                </div>
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-4">
                         <span class="input-group-text">
@@ -96,6 +111,7 @@
                         <span id="ExpiryValidationMessage"></span>
                     </div>
                 </div>
+
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-4">
                         <span class="input-group-text">
@@ -116,7 +132,6 @@
                         <span id="itemtypeValidationMessage"></span>
                     </div>
                 </div>
-
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-4">
                         <label class="input-group-text">
@@ -126,40 +141,53 @@
                         <select multiple id="purpose" data-search="false" class="pp"
                             data-silent-initial-value-set="true" onclick="validatePurposes()">
 
-                            <option value="B1" id="B1">Agricultural credit (code B1)</option>
-                            <option value="B2" id="B2">Insurance (code B2)</option>
-                            <option value="B3" id="B3">Logistics(code B3)</option>
-                            <option value="B4" id="B4">Storage-related services (code B4)</option>
-                            <option value="B5" id="B5">Market-related services (code B5)</option>
-                            <option value="B6" id="B6">Payment services (code B6)</option>
-                            <option value="P1" id="P1">Farm advisories (code P1)</option>
-                            <option value="P2" id="P2">Pest and disease management (code P2)</option>
-                            <option value="P3" id="P3">Water management (code P3)</option>
-                            <option value="P4" id="P4">Quality assurance (code P4)</option>
-                            <option value="P5" id="P5">Soil Health (code P5)</option>
-                            <option value="G1" id="G1">Benefits (code G1)</option>
-                            <option value="G2" id="G2">Research (code G2)</option>
-                            <option value="G3" id="G3">Innovation (code G3)</option>
-                            <option value="G4" id="G4">Education (code G4)</option>
-                            <option value="G5" id="G5">Data Principal use (code G5)</option>
+                            <option value="B1" id="B1">Agricultural credit</option>
+                            <option value="B2" id="B2">Insurance</option>
+                            <option value="B3" id="B3">Logistics </option>
+                            <option value="B4" id="B4">Storage-related services</option>
+                            <option value="B5" id="B5">Market-related services</option>
+                            <option value="B6" id="B6">Payment services</option>
+                            <option value="P1" id="P1">Farm advisories</option>
+                            <option value="P2" id="P2">Pest and disease management</option>
+                            <option value="P3" id="P3">Water management</option>
+                            <option value="P4" id="P4">Quality assurance</option>
+                            <option value="P5" id="P5">Soil Health</option>
+                            <option value="G1" id="G1">Benefits</option>
+                            <option value="G2" id="G2">Research</option>
+                            <option value="G3" id="G3">Innovation</option>
+                            <option value="G4" id="G4">Education</option>
+                            <option value="G5" id="G5">Data Principal use</option>
                         </select>
                         <span id="validatePurposes"></span>
                     </div>
                 </div>
+                </div>
+
+                <div class="col-lg-6 col-12">
+                    
             </div>
-            <div class="row aip-details my-4 w-100">
+            <!-- <div class="row aip-details my-4 w-100">
                 <div class="col-12">
                     <h1 class="ribbon">Additional Details (optional)</h1>
                 </div>
                 <div class="cols justify-content-lg-end d-flex" style="font-size: 12px;">
                     <span class="asterisk">NOTE: Either fill in all the AIU fields or don't fill any</span>
                 </div>
-                <!-- <div class="col-6 justify-content-lg-end d-flex" style="font-size: 12px;">
+                <div class="col-6 justify-content-lg-end d-flex" style="font-size: 12px;">
                     <span class="asterisk">* Required Fields</span>
-                </div> -->
+                </div> 
+            </div> -->
+
+            <div class="row aip-details w-100 my-4">
+                <div class="col-lg-6 col-12">
+                    <h1 class="ribbon">AIU Details (optional)</h1>
+                </div>
+                <div class="cols justify-content-lg-end d-flex" style="font-size: 12px;">
+                    <span class="asterisk">NOTE: Either fill in all the AIU fields or don't fill any</span>
+                </div>
             </div>
             <div class="row mt-4">
-                <div class="col-lg-6 col-12">
+                <!-- <div class="col-lg-6 col-12">
                     <div class="input-group mb-3">
                         <span class="input-group-text">
                             AIU Id
@@ -168,7 +196,7 @@
 
                     </div>
                     <span id="AIUIDValidationMessage"></span>
-                </div>
+                </div> -->
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-3">
                         <span class="input-group-text">
@@ -198,7 +226,7 @@
             <script src="js/virtual-select.min.js"></script>
             <script>
                 VirtualSelect.init({
-                    ele: 'select'
+                    ele: 'select' 
                 });
             </script>
             <script src="js/script.js"></script>
